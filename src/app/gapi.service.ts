@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { first } from 'rxjs/operators';
 
-import { clientId, apiKey } from './gapi.credentials';
 import { Note } from './note';
 
 const gapiUrl = 'https://apis.google.com/js/api.js';
 const discoveryDocs = ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'];
 const scope = 'https://www.googleapis.com/auth/drive.appdata';
+
+// Restricted to https://htdt.github.io/mininote/
+const clientId = '75719209262-8um92aacfktqs7o7qp495k9vmf5ou954.apps.googleusercontent.com';
+const apiKey = 'AIzaSyB2XKxG_RobgBo9KFgjWM8mlcCZU_Mcek0';
+// Create new at https://console.developers.google.com/apis/credentials
 
 declare var gapi;
 
