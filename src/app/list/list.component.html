@@ -1,0 +1,6 @@
+<mat-nav-list>
+    <mat-list-item *ngFor="let note of list" routerLink='/note/{{note.id}}'>
+      <h3 matLine>{{ note.title }}</h3>
+      <p caption matLine>{{ note.updated | date:'dd.MM'}}</p>
+    </mat-list-item>
+</mat-nav-list>

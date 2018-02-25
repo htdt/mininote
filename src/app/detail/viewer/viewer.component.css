@@ -1,0 +1,10 @@
+.rm {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  color: #777;
+}
+
+.rm:hover {
+  color: #333;
+}

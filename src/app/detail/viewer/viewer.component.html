@@ -1,0 +1,12 @@
+<mat-card>
+  <mat-card-title (click)="clickTitle()">{{title}}</mat-card-title>
+  <mat-card-content [innerHTML]="content" (click)="clickContent($event)"></mat-card-content>
+
+  <button class="rm" mat-icon-button (click)="rm.emit()">
+    <mat-icon>delete</mat-icon>
+  </button>    
+
+  <mat-card-actions>
+    <button mat-button (click)="clickEdit()" matTooltip='click content to edit'>EDIT</button>
+  </mat-card-actions>
+</mat-card>

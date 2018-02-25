@@ -1,0 +1,13 @@
+{
+  "short_name": "Mininote",
+  "name": "Mininote",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "assets/favicon192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "/"
+}

@@ -1,0 +1,31 @@
+button[mat-fab] {
+  position: absolute;
+  right: 5vmin;
+  bottom: 5vmin;
+  z-index: 2;
+}
+
+h1 {
+  margin-left: 8px;
+  flex: 1 1 auto;
+}
+
+mat-sidenav-container {
+  margin-top: 56px;
+}
+
+mat-sidenav-content {
+  padding: 5vmin;
+  position: absolute;
+  height: auto;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+mat-toolbar {
+  z-index: 2;
+  position: fixed;
+  top: 0;
+}

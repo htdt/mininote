@@ -1,0 +1,13 @@
+<app-viewer
+  *ngIf="!edit"
+  [note]="note"
+  (edit)="editOn($event)"
+  (rm)="rm()">
+</app-viewer>
+<app-editor
+  *ngIf="edit"
+  [note]="note"
+  [focus]="focus"
+  (save)="save($event)"
+  (cancel)="editOff()">
+</app-editor>

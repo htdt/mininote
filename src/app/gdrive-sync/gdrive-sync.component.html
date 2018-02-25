@@ -1,0 +1,3 @@
+<button *ngIf='(gapi.signed$ | async) === false' mat-icon-button (click)='gapi.signIn()'>
+  <mat-icon>backup</mat-icon>
+</button>

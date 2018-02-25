@@ -1,0 +1,21 @@
+<mat-card>
+  <mat-card-content>
+    <mat-form-field>
+      <input matInput placeholder="title" [(ngModel)]="title" #inputTitle
+        matTooltip='use emoji as icon'>
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea #inputContent matInput matTextareaAutosize
+        [(ngModel)]="content" (keypress)='onTextEdit($event)'>
+      </textarea>
+    </mat-form-field>
+    <a href='https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet'
+      target='_blank'>Markdown Cheatsheet</a>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-button (click)="emitSave()" matTooltip='shift + enter'>SAVE</button>
+    <button mat-button (click)="cancel.emit()">CANCEL</button>
+  </mat-card-actions>
+</mat-card>
