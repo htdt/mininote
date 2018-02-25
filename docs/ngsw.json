@@ -1,17 +1,17 @@
 {
   "configVersion": 1,
-  "index": "/index.html",
+  "index": "/mininote/index.html",
   "assetGroups": [
     {
       "name": "app",
       "installMode": "prefetch",
       "updateMode": "prefetch",
       "urls": [
-        "/index.html",
-        "/inline.4ee954f6f755a8b32673.bundle.js",
-        "/main.6689cf12abfa4a26b21c.bundle.js",
-        "/polyfills.1457c99db4b6dba06e8d.bundle.js",
-        "/styles.d410fbaab1e18971c3dd.bundle.css"
+        "/mininote/index.html",
+        "/mininote/inline.4ee954f6f755a8b32673.bundle.js",
+        "/mininote/main.6689cf12abfa4a26b21c.bundle.js",
+        "/mininote/polyfills.1457c99db4b6dba06e8d.bundle.js",
+        "/mininote/styles.d410fbaab1e18971c3dd.bundle.css"
       ],
       "patterns": []
     },
@@ -20,20 +20,20 @@
       "installMode": "lazy",
       "updateMode": "prefetch",
       "urls": [
-        "/assets/favicon192.png",
-        "/assets/favicon32.png"
+        "/mininote/assets/favicon192.png",
+        "/mininote/assets/favicon32.png"
       ],
       "patterns": []
     }
   ],
   "dataGroups": [],
   "hashTable": {
-    "/inline.4ee954f6f755a8b32673.bundle.js": "15be1b308d63558a3f7912a860774ffeea91fad0",
-    "/assets/favicon192.png": "af1ca023b0789369babdfa7d9a5a8f98542a4f30",
-    "/main.6689cf12abfa4a26b21c.bundle.js": "5f6449e0279792d61e8f57e3734bf46a39ac8d3b",
-    "/assets/favicon32.png": "625f1b7914740f37aea3f245693c13731792de99",
-    "/polyfills.1457c99db4b6dba06e8d.bundle.js": "e29de1bb2e2b4396c66ea8deed94ff4b4b57821d",
-    "/styles.d410fbaab1e18971c3dd.bundle.css": "76b81fced5511fd3380fea9ec3e57666703ebf61",
-    "/index.html": "6a592f3f18c8bf4ba2fa700b49e4ce7b806ebe1a"
+    "/mininote/inline.4ee954f6f755a8b32673.bundle.js": "15be1b308d63558a3f7912a860774ffeea91fad0",
+    "/mininote/assets/favicon192.png": "af1ca023b0789369babdfa7d9a5a8f98542a4f30",
+    "/mininote/main.6689cf12abfa4a26b21c.bundle.js": "5f6449e0279792d61e8f57e3734bf46a39ac8d3b",
+    "/mininote/assets/favicon32.png": "625f1b7914740f37aea3f245693c13731792de99",
+    "/mininote/polyfills.1457c99db4b6dba06e8d.bundle.js": "e29de1bb2e2b4396c66ea8deed94ff4b4b57821d",
+    "/mininote/styles.d410fbaab1e18971c3dd.bundle.css": "76b81fced5511fd3380fea9ec3e57666703ebf61",
+    "/mininote/index.html": "81fdbc13f2d7432f29b81d1fb39fb9128f3fcddf"
   }
 }
