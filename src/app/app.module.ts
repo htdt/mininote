@@ -31,7 +31,10 @@ import { GdriveSyncComponent } from './gdrive-sync/gdrive-sync.component';
   ],
   imports: [
     BrowserModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
+    ServiceWorkerModule.register(
+      '/mininote/ngsw-worker.js',
+      { enabled: environment.production }
+    ),
     FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
