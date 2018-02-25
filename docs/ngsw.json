@@ -8,8 +8,8 @@
       "updateMode": "prefetch",
       "urls": [
         "/mininote/index.html",
-        "/mininote/inline.4ee954f6f755a8b32673.bundle.js",
-        "/mininote/main.6689cf12abfa4a26b21c.bundle.js",
+        "/mininote/inline.83d3c8f4b9d474535616.bundle.js",
+        "/mininote/main.5b6c7509f376f8444713.bundle.js",
         "/mininote/polyfills.1457c99db4b6dba06e8d.bundle.js",
         "/mininote/styles.d410fbaab1e18971c3dd.bundle.css"
       ],
@@ -28,12 +28,12 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "/mininote/inline.4ee954f6f755a8b32673.bundle.js": "15be1b308d63558a3f7912a860774ffeea91fad0",
+    "/mininote/inline.83d3c8f4b9d474535616.bundle.js": "02e3d899b57e67eb4117c2418129ab31e06373c7",
     "/mininote/assets/favicon192.png": "af1ca023b0789369babdfa7d9a5a8f98542a4f30",
-    "/mininote/main.6689cf12abfa4a26b21c.bundle.js": "5f6449e0279792d61e8f57e3734bf46a39ac8d3b",
+    "/mininote/main.5b6c7509f376f8444713.bundle.js": "a12a5f917bc1ca215c93473702b224974d98f55e",
     "/mininote/assets/favicon32.png": "625f1b7914740f37aea3f245693c13731792de99",
     "/mininote/polyfills.1457c99db4b6dba06e8d.bundle.js": "e29de1bb2e2b4396c66ea8deed94ff4b4b57821d",
     "/mininote/styles.d410fbaab1e18971c3dd.bundle.css": "76b81fced5511fd3380fea9ec3e57666703ebf61",
-    "/mininote/index.html": "81fdbc13f2d7432f29b81d1fb39fb9128f3fcddf"
+    "/mininote/index.html": "6691bd67ce2129f58fdb722ffb7d2dc5bef4b46e"
   }
 }
