@@ -9,7 +9,9 @@
       "outDir": "docs",
       "assets": [
         "assets",
-        "manifest.json"
+        "manifest.json",
+        "CNAME",
+        "404.html"
       ],
       "index": "index.html",
       "main": "main.ts",
