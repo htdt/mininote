@@ -1,3 +1,7 @@
-<button *ngIf='(gapi.signed$ | async) === false' mat-icon-button (click)='gapi.signIn()'>
+<button
+  *ngIf='(gapi.signed$ | async) === false'
+  mat-icon-button
+  (click)='gapi.signIn()'
+  matTooltip='Sync via Google Drive'>
   <mat-icon>backup</mat-icon>
 </button>
