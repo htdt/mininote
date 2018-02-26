@@ -1,14 +1,14 @@
-<mat-toolbar color="primary">
-  <button mat-icon-button (click)="snav.toggle()">
+<mat-toolbar color='primary'>
+  <button mat-icon-button (click)='snav.toggle()'>
     <mat-icon>menu</mat-icon>
   </button>  
   <h1>Mininote</h1>
   <app-gdrive-sync></app-gdrive-sync>
 </mat-toolbar>
 
-<mat-sidenav-container fullscreen autosize="true">
-  <mat-sidenav #snav mode="side" opened="true">
-    <app-list></app-list>
+<mat-sidenav-container fullscreen autosize='true'>
+  <mat-sidenav #snav opened='true' [mode]="mobileQuery.matches ? 'over' : 'side'">
+    <app-list (click)='mobileQuery.matches && snav.close()'></app-list>
   </mat-sidenav>
 
   <mat-sidenav-content>
@@ -16,6 +16,6 @@
   </mat-sidenav-content>
 </mat-sidenav-container>
 
-<button mat-fab routerLink="/add">
+<button mat-fab routerLink='/add'>
   <mat-icon>add</mat-icon>
 </button>

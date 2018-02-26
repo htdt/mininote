@@ -10,9 +10,9 @@ h1 {
   flex: 1 1 auto;
 }
 
-mat-sidenav-container {
-  margin-top: 56px;
-}
+ mat-sidenav-container {
+  z-index: auto;
+} 
 
 mat-sidenav-content {
   padding: 5vmin;
@@ -26,6 +26,15 @@ mat-sidenav-content {
 
 mat-toolbar {
   z-index: 2;
-  position: fixed;
+  position: absolute;
   top: 0;
+}
+
+mat-sidenav.mat-drawer-side {
+  z-index: 1;
+  margin-top: 56px;
+}
+
+mat-sidenav-content {
+  margin-top: 56px;
 }
