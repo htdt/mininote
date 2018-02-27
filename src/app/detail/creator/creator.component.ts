@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { NoteService }  from '../../note.service';
-import { Note } from '../../note';
+import { NoteService } from '../../core/note.service';
+import { Note } from '../../core/note';
 import { NoteText } from '../editor/editor.component';
 
 @Component({
@@ -25,7 +25,7 @@ export class CreatorComponent implements OnInit {
   save(e: NoteText) {
     this.note.title = e.title;
     this.note.content = e.content;
-    let id = this.noteService.save(this.note);
+    const id = this.noteService.save(this.note);
     this.router.navigate(['note', id]);
   }
 

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { filter } from 'rxjs/operators';
 
-import { GapiService } from '../gapi.service';
-import { NoteService } from '../note.service';
+import { GapiService } from '../core/gapi.service';
+import { NoteService } from '../core/note.service';
 import { MatSnackBar } from '@angular/material';
 
 @Component({

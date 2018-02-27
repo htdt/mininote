@@ -21,6 +21,11 @@ export class NoteService {
   async startGapi(): Promise<void> {
     await this.gapi.init();
     const db = await this.gapi.firstSync();
+    // TODO handle this scenario:
+    // 1. gdrive has old backup
+    // 2. user used app offline, created new notes
+    // 3. user connects gdrive
+    // 4. old backup will delete new notes here
     if (db != null) this.list$.next(db);
     this.list$.pipe(skip(1)).subscribe(x => this.gapi.saveIfSync(x));
   }

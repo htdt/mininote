@@ -1,6 +1,6 @@
 import * as marked from 'marked';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Note } from '../../note';
+import { Note } from '../../core/note';
 import { EditType } from '../detail.component';
 
 @Component({
@@ -19,7 +19,7 @@ export class ViewerComponent {
 
   @Output() edit = new EventEmitter<EditType>();
   @Output() rm = new EventEmitter<any>();
-  
+
   clickContent(e) {
     if ((e.target as HTMLElement).nodeName != 'A') this.edit.emit(EditType.Content);
   }

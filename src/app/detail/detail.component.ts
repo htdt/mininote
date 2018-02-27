@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { NoteService } from '../note.service';
-import { Note } from '../note';
+import { NoteService } from '../core/note.service';
+import { Note } from '../core/note';
 import { NoteText } from './editor/editor.component';
 
 export enum EditType {Normal, Title, Content}
