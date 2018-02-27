@@ -7,7 +7,9 @@
 </mat-toolbar>
 
 <mat-sidenav-container fullscreen autosize='true'>
-  <mat-sidenav #snav opened='true' [mode]="mobileQuery.matches ? 'over' : 'side'">
+  <mat-sidenav #snav
+    [opened]='openNavAtStart'
+    [mode]="mobileQuery.matches ? 'over' : 'side'">
     <app-list (click)='mobileQuery.matches && snav.close()'></app-list>
   </mat-sidenav>
 

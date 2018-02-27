@@ -1,23 +1,31 @@
 import {MediaMatcher} from '@angular/cdk/layout';
-import {ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
-import { GapiService } from './gapi.service';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import { NoteService } from './core/note.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
+  openNavAtStart: boolean;
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
 
   constructor(
-    private gapiService: GapiService,
+    private notes: NoteService,
     changeDetectorRef: ChangeDetectorRef,
-    media: MediaMatcher) {
+    media: MediaMatcher
+  ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+  }
+
+  ngOnInit(): void {
+    // don't open empty list on mobile
+    this.openNavAtStart = !(this.mobileQuery.matches &&
+      this.notes.getLast() == null);
   }
 
   ngOnDestroy(): void {
