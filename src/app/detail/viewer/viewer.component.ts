@@ -20,9 +20,6 @@ export class ViewerComponent {
   @Output() edit = new EventEmitter<EditType>();
   @Output() rm = new EventEmitter<any>();
 
-  clickContent(e) {
-    if ((e.target as HTMLElement).nodeName != 'A') this.edit.emit(EditType.Content);
-  }
   clickTitle() { this.edit.emit(EditType.Title); }
-  clickEdit() { this.edit.emit(EditType.Normal); }
+  clickEdit() { this.edit.emit(EditType.Content); }
 }
