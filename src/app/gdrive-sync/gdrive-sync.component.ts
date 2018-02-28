@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GapiService } from '../core/gapi.service';
+import { BackupService } from '../core/backup.service';
 
 @Component({
   selector: 'app-gdrive-sync',
@@ -7,5 +8,8 @@ import { GapiService } from '../core/gapi.service';
   styleUrls: ['./gdrive-sync.component.css']
 })
 export class GdriveSyncComponent {
-  constructor(public gapi: GapiService) {}
+  constructor(
+    public gapi: GapiService,
+    public backup: BackupService,
+  ) {}
 }

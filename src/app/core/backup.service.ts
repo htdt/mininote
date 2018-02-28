@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { skip, filter, throttleTime } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { GapiService } from './gapi.service';
 import { NoteService } from './note.service';
@@ -9,6 +10,7 @@ import { MergeDialogComponent } from './merge-dialog.component';
 
 @Injectable()
 export class BackupService {
+  pending$ = new BehaviorSubject<boolean>(false);
   skipCurListUpdate = false;
 
   get syncTS()     { return localStorage.getItem('syncTS'); }
@@ -38,10 +40,13 @@ export class BackupService {
     fromEvent(document, 'visibilitychange').pipe(throttleTime(3 * 60 * 1000))
       .subscribe(_ => this.syncSafe());
 
+    this.pending$.next(true);
     try {
       await this.gapi.init();
     } catch {
       this.connectError();
+    } finally {
+      this.pending$.next(false);
     }
   }
 
@@ -62,10 +67,13 @@ export class BackupService {
   }
 
   private async syncSafe(): Promise<void> {
+    this.pending$.next(true);
     try {
       await this.syncWithDrive();
     } catch {
       this.syncError();
+    } finally {
+      this.pending$.next(false);
     }
   }
 

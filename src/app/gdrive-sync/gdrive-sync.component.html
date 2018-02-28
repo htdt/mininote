@@ -5,3 +5,6 @@
   matTooltip='Sync via Google Drive'>
   <mat-icon>backup</mat-icon>
 </button>
+
+<mat-spinner *ngIf='backup.pending$ | async' color='accent' diameter='30'>
+</mat-spinner>
