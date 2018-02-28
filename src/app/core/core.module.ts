@@ -5,14 +5,12 @@ import { NoteService } from './note.service';
 import { GapiService } from './gapi.service';
 import { BackupService } from './backup.service';
 import { MergeDialogComponent } from './merge-dialog.component';
-import { MatDialogModule, MatSnackBarModule, MatButtonModule } from '@angular/material';
+import { AppMaterialModule } from '../app-material.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    MatDialogModule,
-    MatSnackBarModule,
-    MatButtonModule,
+    AppMaterialModule,
   ],
   declarations: [MergeDialogComponent],
   entryComponents: [MergeDialogComponent],

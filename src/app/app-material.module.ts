@@ -11,6 +11,7 @@ import {
   MatTooltipModule,
   MatSnackBarModule,
   MatDialogModule,
+  MatProgressSpinnerModule,
 } from '@angular/material';
 
 @NgModule({
@@ -26,6 +27,7 @@ import {
     MatTooltipModule,
     MatSnackBarModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
   ],
 })
 export class AppMaterialModule { }
