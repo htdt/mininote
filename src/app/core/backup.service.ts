@@ -16,7 +16,6 @@ export class BackupService {
   get unsaved()    { return localStorage.getItem('unsaved') == 'true'; }
   set unsaved(x: boolean) { localStorage.setItem('unsaved', x.toString()); }
 
-
   constructor(
     private gapi: GapiService,
     private notes: NoteService,
@@ -29,24 +28,24 @@ export class BackupService {
       if (this.skipCurListUpdate) this.skipCurListUpdate = false;
       else {
         this.unsaved = true;
-        this.syncAndCatch();
+        this.syncSafe();
       }
     });
 
     this.gapi.signed$.pipe(filter(f => f))
-      .subscribe(_ => this.syncAndCatch());
+      .subscribe(_ => this.syncSafe());
 
     fromEvent(document, 'visibilitychange').pipe(throttleTime(3 * 60 * 1000))
-      .subscribe(_ => this.syncAndCatch());
+      .subscribe(_ => this.syncSafe());
 
     try {
       await this.gapi.init();
     } catch {
-      this.errorConnect();
+      this.connectError();
     }
   }
 
-  private errorConnect(): void {
+  private connectError(): void {
     this.snackBar.open(
       'Unable to connect to Google Drive',
       'Reload',
@@ -54,19 +53,19 @@ export class BackupService {
     ).onAction().subscribe(() => window.location.reload());
   }
 
-  private errorSync(): void {
+  private syncError(): void {
     this.snackBar.open(
       'Unable to sync with Google Drive',
       'Try Again',
       { duration: 10000 }
-    ).onAction().subscribe(() => this.syncAndCatch());
+    ).onAction().subscribe(() => this.syncSafe());
   }
 
-  private async syncAndCatch(): Promise<void> {
+  private async syncSafe(): Promise<void> {
     try {
       await this.syncWithDrive();
     } catch {
-      this.errorSync();
+      this.syncError();
     }
   }
 

@@ -85,13 +85,14 @@ export class GapiService {
   }
 
   private loadScript(): Promise<any> {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       const node = document.createElement('script');
       node.src = gapiUrl;
       node.type = 'text/javascript';
       node.charset = 'utf-8';
       document.getElementsByTagName('head')[0].appendChild(node);
       node.onload = resolve;
+      node.onerror = reject;
     });
   }
 
