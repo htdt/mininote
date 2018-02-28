@@ -52,10 +52,6 @@ export class GapiService {
     return files[0].modifiedTime;
   }
 
-  ready(): boolean {
-    return this.signed$.getValue() && this.fileId != undefined;
-  }
-
   load(): Promise<any> {
     return gapi.client.drive.files.get({fileId: this.fileId, alt: 'media'})
       .then(r => r.body ? JSON.parse(r.body) : null);
