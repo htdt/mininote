@@ -20,20 +20,16 @@ declare var gapi;
 @Injectable()
 export class GapiService {
   signed$ = new BehaviorSubject<boolean>(undefined);
-  unsynced$ = new BehaviorSubject<boolean>(false);
-  netError$ = new BehaviorSubject<boolean>(false);
 
   private fileId: string;
-  private modifiedTime: string;
   private initialized = false;
-
   private get gauth() { return gapi.auth2.getAuthInstance(); }
 
   signIn(): void { this.gauth.signIn(); }
   signOut(): void { this.gauth.signOut(); }
 
   async init(): Promise<void> {
-    if (this.initialized) return console.error('Gapi already initialized');
+    if (this.initialized) throw new Error('Gapi already initialized');
     this.initialized = true;
 
     await this.loadScript();
@@ -42,83 +38,30 @@ export class GapiService {
 
     this.signed$.next(this.gauth.isSignedIn.get());
     this.gauth.isSignedIn.listen(f => this.signed$.next(f));
-    return;
   }
 
-  private timeDiffers = (x: {modifiedTime: string}) =>
-    this.modifiedTime && x.modifiedTime && this.modifiedTime != x.modifiedTime
-
-  async saveIfSync(data: any): Promise<void> {
-    console.log('saveIfSync');
-    if (!this.fileId || !this.signed$.getValue()) {
-      throw new Error('Drive API: not signed in');
-    }
-
-    if (this.netError$.getValue()) this.netError$.next(false);
-
-    let files;
-    try {
-      files = await this.list();
-    } catch {
-      this.netError$.next(true);
-      throw new Error('Drive API: error listing backups');
-    }
-
-    if (!files.length || this.timeDiffers(files[0])) {
-      this.unsynced$.next(true);
-      return;
-    }
-
-    await this.saveForce(data);
-  }
-
-  async saveForce(data: any): Promise<void> {
-    try {
-      await this.save(data);
-    } catch {
-      this.netError$.next(true);
-      throw new Error('Drive API: error updating backup');
-    }
-    try {
-      const files = await this.list();
-      this.modifiedTime = files[0].modifiedTime;
-    } catch {
-      this.netError$.next(true);
-      throw new Error('Drive API: error listing backups after update');
-    }
-    if (this.unsynced$.getValue()) this.unsynced$.next(false);
-  }
-
-
-  async firstSync(): Promise<Note[]> {
-    await this.signed$.pipe(first(f => f)).toPromise();
-    console.log('firstSync start');
-
+  async getTS(): Promise<string> {
     const files = await this.list();
     if (files.length == 0) {
-      console.log('firstSync len 0');
       this.fileId = await this.create();
       return null;
+    } else if (files.length > 1) {
+      console.error(`${files.length} backups on gdrive`);
     }
-
-    if (files.length > 1) console.error(`${files.length} backups on gdrive`);
     this.fileId = files[0].id;
-    this.modifiedTime = files[0].modifiedTime;
-    const file = await this.load();
-    console.log('firstSync loaded');
-    return file ? JSON.parse(file) : null;
+    return files[0].modifiedTime;
   }
 
-  private rm(fileId: string): Promise<any> {
-    return gapi.client.drive.files.delete({fileId});
+  ready(): boolean {
+    return this.signed$.getValue() && this.fileId != undefined;
   }
 
-  private load(): Promise<any> {
+  load(): Promise<any> {
     return gapi.client.drive.files.get({fileId: this.fileId, alt: 'media'})
-      .then(r => r.body);
+      .then(r => r.body ? JSON.parse(r.body) : null);
   }
 
-  private save(data: any): Promise<any> {
+  save(data: any): Promise<any> {
     return gapi.client.request({
       path: '/upload/drive/v3/files/' + this.fileId,
       method: 'PATCH',
@@ -154,5 +97,10 @@ export class GapiService {
       document.getElementsByTagName('head')[0].appendChild(node);
       node.onload = resolve;
     });
+  }
+
+  // unused, just in case
+  private rm(fileId: string): Promise<any> {
+    return gapi.client.drive.files.delete({fileId});
   }
 }

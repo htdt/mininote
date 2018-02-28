@@ -1,33 +1,24 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
-import { skip } from 'rxjs/operators';
-
 import { Note } from './note';
-import { GapiService } from './gapi.service';
 
 @Injectable()
 export class NoteService {
   list$: BehaviorSubject<Note[]>;
 
-  constructor(private gapi: GapiService) {
+  constructor() {
     const init = JSON.parse(localStorage.getItem('mininoteDB')) || [];
     this.list$ = new BehaviorSubject(init);
     this.list$.subscribe(x =>
       localStorage.setItem('mininoteDB', JSON.stringify(x)));
-    this.startGapi();
   }
 
-  async startGapi(): Promise<void> {
-    await this.gapi.init();
-    const db = await this.gapi.firstSync();
-    // TODO handle this scenario:
-    // 1. gdrive has old backup
-    // 2. user used app offline, created new notes
-    // 3. user connects gdrive
-    // 4. old backup will delete new notes here
-    if (db != null) this.list$.next(db);
-    this.list$.pipe(skip(1)).subscribe(x => this.gapi.saveIfSync(x));
+  undo(): void {
+    // TODO
+  }
+
+  update(db: Note[]): void {
+    this.list$.next(db);
   }
 
   get(id: number): Note {
