@@ -7,11 +7,7 @@
       "installMode": "prefetch",
       "updateMode": "prefetch",
       "urls": [
-        "/index.html",
-        "/inline.fe31285275b6211d06bb.bundle.js",
-        "/main.d762fc0ae3abbe2270a4.bundle.js",
-        "/polyfills.1457c99db4b6dba06e8d.bundle.js",
-        "/styles.25d5769d333664aaed2a.bundle.css"
+        "/index.html"
       ],
       "patterns": []
     },
@@ -28,12 +24,8 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "/inline.fe31285275b6211d06bb.bundle.js": "441ef9ec6e4ec0d2f659f7eeb574e0533c5adff0",
+    "/index.html": "029557064d9a41dbda306918b3235396766a55ae",
     "/assets/favicon192.png": "43950742a4ede10c0c13409ac63c430360191437",
-    "/main.d762fc0ae3abbe2270a4.bundle.js": "958ca4c99dd419c6cbfca4521a2b121006ee5825",
-    "/assets/favicon32.png": "ad09fe99f37be0c1fec818aacb663820ccd040d4",
-    "/polyfills.1457c99db4b6dba06e8d.bundle.js": "e29de1bb2e2b4396c66ea8deed94ff4b4b57821d",
-    "/styles.25d5769d333664aaed2a.bundle.css": "f31faf6d34ea24c43cd6dbdc422c95e0a6656bec",
-    "/index.html": "3c38c495054862ef6b5d89c8e2188d726484f3f7"
+    "/assets/favicon32.png": "ad09fe99f37be0c1fec818aacb663820ccd040d4"
   }
 }
