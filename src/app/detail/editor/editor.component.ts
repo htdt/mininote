@@ -38,5 +38,6 @@ export class EditorComponent {
 
   onTextEdit(e: KeyboardEvent) {
     if (e.key == 'Enter' && e.shiftKey) this.emitSave();
+    else if (e.key == 'Escape') this.cancel.emit();
   }
 }
