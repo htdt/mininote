@@ -38,7 +38,7 @@ export class BackupService {
       .subscribe(_ => this.syncSafe());
 
     fromEvent(document, 'visibilitychange')
-      .pipe(throttleTime(3 * 60 * 1000), delay(1000))
+      .pipe(throttleTime(5 * 60 * 1000), delay(1000))
       .subscribe(_ => this.syncSafe());
 
     this.pending$.next(true);

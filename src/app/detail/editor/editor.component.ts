@@ -36,8 +36,11 @@ export class EditorComponent {
     this.save.emit({title: this.title, content: this.content});
   }
 
-  onTextEdit(e: KeyboardEvent) {
+  keyPress(e: KeyboardEvent) {
     if (e.key == 'Enter' && e.shiftKey) this.emitSave();
-    else if (e.key == 'Escape') this.cancel.emit();
+  }
+
+  keyUp(e: KeyboardEvent) { // Escape captured only with keyUp
+    if (e.key == 'Escape') this.cancel.emit();
   }
 }

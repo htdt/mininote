@@ -9,14 +9,14 @@ body {
   margin: 0;
 }
 
-code, textarea {
+code {
   font-family: 'Roboto Mono', monospace;
   font-size: 13px;
 }
 
 pre {
   background: #f5f5f5;
-  padding: 2px 7px;
+  padding: 3px 7px;
   border-radius: 5px;
   border: 1px solid #dfdfdf;
 }

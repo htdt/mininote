@@ -7,7 +7,9 @@
 
     <mat-form-field>
       <textarea #inputContent matInput matTextareaAutosize
-        [(ngModel)]="content" (keypress)='onTextEdit($event)'>
+        [(ngModel)]="content"
+        (keypress)='keyPress($event)'
+        (keyup)='keyUp($event)'>
       </textarea>
     </mat-form-field>
     <a href='https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet'
