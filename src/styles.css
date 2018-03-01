@@ -9,6 +9,14 @@ body {
   margin: 0;
 }
 
-tt, code, kbd, samp {
+code, textarea {
   font-family: 'Roboto Mono', monospace;
+  font-size: 13px;
+}
+
+pre {
+  background: #f5f5f5;
+  padding: 2px 7px;
+  border-radius: 5px;
+  border: 1px solid #dfdfdf;
 }
