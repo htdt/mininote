@@ -79,7 +79,6 @@ export class BackupService {
   }
 
   private async syncWithDrive(): Promise<void> {
-    console.log('syncWithDrive');
     if (!this.gapi.signed$.getValue()) return;
 
     const ts = await this.gapi.getTS();
@@ -98,7 +97,7 @@ export class BackupService {
   }
 
   private async load(ts: string): Promise<void> {
-    console.log('load');
+    console.log('Google Drive: load');
     const db = await this.gapi.load();
     if (db != null) {
       this.skipCurListUpdate = true;
@@ -108,7 +107,7 @@ export class BackupService {
   }
 
   private async save(): Promise<void> {
-    console.log('save');
+    console.log('Google Drive: save');
     const db = this.notes.list$.getValue();
     await this.gapi.save(db);
     this.unsaved = false;

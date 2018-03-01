@@ -30,7 +30,6 @@ export class DetailComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log('ngOnInit');
     this.routeSub = this.route.paramMap.subscribe(m => {
       this.id = parseInt(m.get('id'), 10);
       this.updateNote();
