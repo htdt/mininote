@@ -8,9 +8,10 @@
         "/index.html"
       ],
       "versionedFiles": [
-        "/*.bundle.css",
-        "/*.bundle.js",
-        "/*.chunk.js"
+        "/main.*.js",
+        "/polyfills.*.js",
+        "/runtime.*.js",
+        "/styles.*.css"
       ]
     }
   }, {

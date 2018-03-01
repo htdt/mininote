@@ -7,7 +7,11 @@
       "installMode": "prefetch",
       "updateMode": "prefetch",
       "urls": [
-        "/index.html"
+        "/index.html",
+        "/main.95ae683543708cff527f.js",
+        "/polyfills.f0578259d90544bd90ad.js",
+        "/runtime.5f9d33fb31487f0fdbf1.js",
+        "/styles.88b7a1b5a98f49737729.css"
       ],
       "patterns": []
     },
@@ -24,8 +28,12 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "/index.html": "05bc2038032bec970374eb2a13c799726b0ea228",
+    "/main.95ae683543708cff527f.js": "b2f26f7a8f53c0bd3554f3e6d81370a78a0cf906",
     "/assets/favicon192.png": "43950742a4ede10c0c13409ac63c430360191437",
-    "/assets/favicon32.png": "ad09fe99f37be0c1fec818aacb663820ccd040d4"
+    "/polyfills.f0578259d90544bd90ad.js": "d09928abc814ab636baa5404461ec7a90c95d02f",
+    "/assets/favicon32.png": "ad09fe99f37be0c1fec818aacb663820ccd040d4",
+    "/runtime.5f9d33fb31487f0fdbf1.js": "078e320cc6fdaf355836c3b1c52b059cdd33fc7e",
+    "/styles.88b7a1b5a98f49737729.css": "fb63241e9fccbcb488f6c9dcf4a2bdc21ce91e58",
+    "/index.html": "05bc2038032bec970374eb2a13c799726b0ea228"
   }
 }
