@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Note } from './note';
 
 @Injectable()
 export class NoteService {
+  private bin: Note;
   list$: BehaviorSubject<Note[]>;
 
-  constructor() {
+  constructor(private snackBar: MatSnackBar) {
     const init = JSON.parse(localStorage.getItem('mininoteDB')) || [];
     this.list$ = new BehaviorSubject(init);
     this.list$.subscribe(x =>
       localStorage.setItem('mininoteDB', JSON.stringify(x)));
-  }
-
-  undo(): void {
-    // TODO
   }
 
   update(db: Note[]): void {
@@ -49,8 +47,15 @@ export class NoteService {
     const curList = this.list$.getValue();
     const idx = curList.findIndex(x => x.id == id);
     if (idx >= 0) {
-      curList.splice(idx, 1);
+      this.bin = curList.splice(idx, 1)[0];
       this.list$.next(curList);
+      this.showUndo();
     }
+  }
+
+  private showUndo(): void {
+    const ref = this.snackBar.open('Deleted', 'Undo', { duration: 7000 });
+    ref.onAction().subscribe(() => this.bin && this.save(this.bin));
+    ref.afterDismissed().subscribe(() => this.bin = undefined);
   }
 }
