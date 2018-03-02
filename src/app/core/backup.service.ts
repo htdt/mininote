@@ -38,6 +38,7 @@ export class BackupService {
       .subscribe(_ => this.syncSafe());
 
     fromEvent(document, 'visibilitychange')
+      .pipe(filter(_ => !document.hidden))
       .pipe(throttleTime(5 * 60 * 1000), delay(1000))
       .subscribe(_ => this.syncSafe());
 
