@@ -1,27 +1,35 @@
 # Mininote
+Notes Web App 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.0-rc.0.
+## Features
+#### No backend, completely static
+Served via github from `docs`.
 
-## Development server
+#### Cross platform
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+#### Offline mode
+Service worker for local copy, `localStorage` for data.
 
-## Code scaffolding
+#### Small and fast
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+#### Sync between devices
+Via [Google Drive Application Data](https://developers.google.com/drive/v3/web/appdata)
 
-## Build
+#### Minimalistic UI
+with material design
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+#### Angular 5.2.0
+Angular CLI generator
 
-## Running unit tests
+#### [mininote.js.org](https://mininote.js.org/)
+Huge thanks to [js.org](https://dns.js.org/) for domain
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+#### Android app
+Open in browser, tap settings and "save to homescreen"
 
-## Running end-to-end tests
+#### Markdown editor
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+#### Free, without ads and open source
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Motivation
