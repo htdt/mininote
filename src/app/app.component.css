@@ -28,13 +28,14 @@ mat-toolbar {
   z-index: 2;
   position: absolute;
   top: 0;
+  height: 46px;
 }
 
 mat-sidenav.mat-drawer-side {
   z-index: 1;
-  margin-top: 56px;
+  margin-top: 46px;
 }
 
 mat-sidenav-content {
-  margin-top: 56px;
+  margin-top: 46px;
 }
