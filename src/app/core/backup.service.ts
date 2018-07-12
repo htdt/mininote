@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { fromEvent } from 'rxjs/observable/fromEvent';
+import { fromEvent ,  BehaviorSubject } from 'rxjs';
 import { skip, filter, throttleTime, delay } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { GapiService } from './gapi.service';
 import { NoteService } from './note.service';

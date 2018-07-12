@@ -5,13 +5,9 @@
     "installMode": "prefetch",
     "resources": {
       "files": [
-        "/index.html"
-      ],
-      "versionedFiles": [
-        "/main.*.js",
-        "/polyfills.*.js",
-        "/runtime.*.js",
-        "/styles.*.css"
+        "/index.html",
+        "/*.css",
+        "/*.js"
       ]
     }
   }, {
