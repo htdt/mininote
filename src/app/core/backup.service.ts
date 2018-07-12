@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { fromEvent ,  BehaviorSubject } from 'rxjs';
-import { skip, filter, throttleTime, delay } from 'rxjs/operators';
+import { fromEvent, BehaviorSubject, timer } from 'rxjs';
+import { skip, filter, throttleTime, delay, skipUntil, tap } from 'rxjs/operators';
 
 import { GapiService } from './gapi.service';
 import { NoteService } from './note.service';
@@ -33,13 +33,14 @@ export class BackupService {
       }
     });
 
-    this.gapi.signed$.pipe(filter(f => f))
-      .subscribe(_ => this.syncSafe());
+    this.gapi.signed$.pipe(filter(f => f)).subscribe(this.syncSafe);
 
     fromEvent(document, 'visibilitychange')
-      .pipe(filter(_ => !document.hidden))
-      .pipe(throttleTime(5 * 60 * 1000), delay(1000))
-      .subscribe(_ => this.syncSafe());
+      .pipe(filter(() => !document.hidden))
+      .pipe(skipUntil(timer(60 * 1000)))
+      .pipe(throttleTime(5 * 60 * 1000))
+      .pipe(delay(1000))
+      .subscribe(this.syncSafe);
 
     this.pending$.next(true);
     try {
@@ -64,10 +65,10 @@ export class BackupService {
       'Unable to sync with Google Drive',
       'Try Again',
       { duration: 10000 }
-    ).onAction().subscribe(() => this.syncSafe());
+    ).onAction().subscribe(this.syncSafe);
   }
 
-  private async syncSafe(): Promise<void> {
+  private syncSafe = async (): Promise<void> => {
     this.pending$.next(true);
     try {
       await this.syncWithDrive();
