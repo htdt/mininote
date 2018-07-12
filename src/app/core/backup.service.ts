@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { fromEvent, BehaviorSubject, timer } from 'rxjs';
-import { skip, filter, throttleTime, delay, skipUntil, tap } from 'rxjs/operators';
+import { fromEvent, BehaviorSubject } from 'rxjs';
+import { skip, filter, throttleTime, delay } from 'rxjs/operators';
 
 import { GapiService } from './gapi.service';
 import { NoteService } from './note.service';
@@ -36,8 +36,8 @@ export class BackupService {
     this.gapi.signed$.pipe(filter(f => f)).subscribe(this.syncSafe);
 
     fromEvent(document, 'visibilitychange')
+      .pipe(throttleTime(60 * 1000))
       .pipe(filter(() => !document.hidden))
-      .pipe(skipUntil(timer(60 * 1000)))
       .pipe(throttleTime(5 * 60 * 1000))
       .pipe(delay(1000))
       .subscribe(this.syncSafe);
