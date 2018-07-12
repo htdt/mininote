@@ -1,13 +1,16 @@
 {
-  "short_name": "Mininote",
   "name": "Mininote",
+  "short_name": "Mininote",
+  "theme_color": "#673ab7",
+  "background_color": "#fafafa",
   "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
   "icons": [
     {
       "src": "assets/favicon192.png",
       "type": "image/png",
       "sizes": "192x192"
     }
-  ],
-  "start_url": "/"
+  ]
 }

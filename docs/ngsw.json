@@ -8,10 +8,10 @@
       "updateMode": "prefetch",
       "urls": [
         "/index.html",
-        "/main.f47e6329b96f794c235a.js",
-        "/polyfills.f0578259d90544bd90ad.js",
-        "/runtime.5f9d33fb31487f0fdbf1.js",
-        "/styles.88b7a1b5a98f49737729.css"
+        "/main.efe64310aaa42d6c9141.js",
+        "/polyfills.001f1812942338ddb405.js",
+        "/runtime.a66f828dca56eeb90e02.js",
+        "/styles.331f43e2618d04c2c930.css"
       ],
       "patterns": []
     },
@@ -28,12 +28,30 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "/main.f47e6329b96f794c235a.js": "cd353c3948cb2532ff67104b255f9a35db2fd432",
     "/assets/favicon192.png": "43950742a4ede10c0c13409ac63c430360191437",
-    "/polyfills.f0578259d90544bd90ad.js": "d09928abc814ab636baa5404461ec7a90c95d02f",
     "/assets/favicon32.png": "ad09fe99f37be0c1fec818aacb663820ccd040d4",
-    "/runtime.5f9d33fb31487f0fdbf1.js": "078e320cc6fdaf355836c3b1c52b059cdd33fc7e",
-    "/styles.88b7a1b5a98f49737729.css": "fb63241e9fccbcb488f6c9dcf4a2bdc21ce91e58",
-    "/index.html": "26476132ea1dadf97f3e7b1e06f24b4d5c1a5473"
-  }
+    "/index.html": "f5c432f1948c317ed53628bd0e5844be15cfba26",
+    "/main.efe64310aaa42d6c9141.js": "a68ebaee3319fa09bc79556b88fa1cbc9a890cc2",
+    "/polyfills.001f1812942338ddb405.js": "8949bb1b1e302dda246f6ed9c2da703270360b1f",
+    "/runtime.a66f828dca56eeb90e02.js": "078e320cc6fdaf355836c3b1c52b059cdd33fc7e",
+    "/styles.331f43e2618d04c2c930.css": "36fd869212111479d321c519db1a7dcdb0923da4"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^\\/]*\\.[^\\/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^\\/]*__[^\\/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^\\/]*__[^\\/]*\\/.*$"
+    }
+  ]
 }
