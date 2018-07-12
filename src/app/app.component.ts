@@ -26,8 +26,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // don't open empty list on mobile
-    this.openNavAtStart = !(this.mobileQuery.matches &&
-      this.notes.getLast() == null);
+    this.openNavAtStart = !(this.mobileQuery.matches && this.notes.getLast() == null);
     this.backup.start();
   }
 
