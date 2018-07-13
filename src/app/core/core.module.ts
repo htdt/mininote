@@ -6,14 +6,15 @@ import { GapiService } from './gapi.service';
 import { BackupService } from './backup.service';
 import { MergeDialogComponent } from './merge-dialog.component';
 import { AppMaterialModule } from '../app-material.module';
+import { UploadJSONComponent } from '../menu-right/upload-json.component';
 
 @NgModule({
   imports: [
     CommonModule,
     AppMaterialModule,
   ],
-  declarations: [MergeDialogComponent],
-  entryComponents: [MergeDialogComponent],
+  declarations: [MergeDialogComponent, UploadJSONComponent],
+  entryComponents: [MergeDialogComponent, UploadJSONComponent],
   providers: [
     NoteService,
     GapiService,

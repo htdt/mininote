@@ -114,4 +114,14 @@ export class BackupService {
     this.unsaved = false;
     this.syncTS = await this.gapi.getTS();
   }
+
+  downloadFile(): void {
+    const db = this.notes.list$.getValue();
+    const href = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(db));
+    const a = document.createElement('a');
+    a.setAttribute('href', href);
+    a.setAttribute('download', `mininote-${new Date().toJSON()}.json`);
+    a.click();
+    a.remove();
+  }
 }

@@ -1,0 +1,27 @@
+<mat-spinner *ngIf='backup.pending$ | async' color='accent' diameter='30'></mat-spinner>
+  
+<button mat-icon-button [matMenuTriggerFor]="menu">
+  <mat-icon>more_vert</mat-icon>
+</button>
+
+<mat-menu #menu>
+  <button mat-menu-item disabled='gapi.signed$ | async' (click)='gapi.signIn()'>
+    <mat-icon>cloud_queue</mat-icon>
+    <span>Google Drive sync</span>
+  </button>
+
+  <button mat-menu-item disabled='(gapi.signed$ | async) === false' (click)='gapi.signOut()'>
+    <mat-icon>cloud_off</mat-icon>
+    <span>Logout and cleanup</span>
+  </button>
+
+  <button mat-menu-item (click)='backup.downloadFile()'>
+    <mat-icon>file_download</mat-icon>
+    <span>Download backup</span>
+  </button>
+
+  <button mat-menu-item (click)='uploadJSON()'>
+    <mat-icon>file_upload</mat-icon>
+    <span>Restore from backup</span>
+  </button>
+</mat-menu>

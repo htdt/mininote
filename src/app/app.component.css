@@ -10,7 +10,7 @@ h1 {
   flex: 1 1 auto;
 }
 
- mat-sidenav-container {
+mat-sidenav-container {
   z-index: auto;
 } 
 

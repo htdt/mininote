@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GdriveSyncComponent } from './gdrive-sync.component';
+import { MenuRightComponent } from './menu-right.component';
 
-describe('GdriveSyncComponent', () => {
-  let component: GdriveSyncComponent;
-  let fixture: ComponentFixture<GdriveSyncComponent>;
+describe('MenuRightComponent', () => {
+  let component: MenuRightComponent;
+  let fixture: ComponentFixture<MenuRightComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GdriveSyncComponent ]
+      declarations: [ MenuRightComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GdriveSyncComponent);
+    fixture = TestBed.createComponent(MenuRightComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

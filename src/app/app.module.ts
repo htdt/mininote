@@ -14,8 +14,8 @@ import { EditorComponent } from './detail/editor/editor.component';
 import { ViewerComponent } from './detail/viewer/viewer.component';
 import { CreatorComponent } from './detail/creator/creator.component';
 import { LatestComponent } from './latest/latest.component';
-import { GdriveSyncComponent } from './gdrive-sync/gdrive-sync.component';
 import { CoreModule } from './core/core.module';
+import { MenuRightComponent } from './menu-right/menu-right.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import { CoreModule } from './core/core.module';
     ViewerComponent,
     CreatorComponent,
     LatestComponent,
-    GdriveSyncComponent,
+    MenuRightComponent,
   ],
   imports: [
     BrowserModule,
