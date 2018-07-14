@@ -14,23 +14,24 @@ export class MenuRightComponent {
   constructor(
     public gapi: GapiService,
     public backup: BackupService,
+    public notes: NoteService,
     private dialog: MatDialog,
-    private notes: NoteService,
     private snackBar: MatSnackBar,
   ) {}
 
-  showError() {
-    this.snackBar.open('Error loading file', 'Close', { duration: 3000 });
-  }
-
   uploadJSON() {
     this.dialog.open(UploadJSONComponent).afterClosed().subscribe(async result => {
-      if (!result) return this.showError();
+      if (!result) return;
       try {
         this.notes.update(JSON.parse(result));
       } catch {
-        this.showError();
+        this.snackBar.open('Error loading file', 'Close', { duration: 3000 });
       }
     });
+  }
+
+  logout() {
+    this.gapi.signOut();
+    this.notes.update([]);
   }
 }

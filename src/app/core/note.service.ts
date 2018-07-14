@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Note } from './note';
 
 @Injectable()
@@ -13,6 +14,10 @@ export class NoteService {
     this.list$ = new BehaviorSubject(init);
     this.list$.subscribe(x =>
       localStorage.setItem('mininoteDB', JSON.stringify(x)));
+  }
+
+  get length() {
+    return this.list$.pipe(map(x => x.length));
   }
 
   update(db: Note[]): void {

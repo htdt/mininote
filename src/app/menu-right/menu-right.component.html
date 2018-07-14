@@ -5,23 +5,19 @@
 </button>
 
 <mat-menu #menu>
-  <button mat-menu-item disabled='gapi.signed$ | async' (click)='gapi.signIn()'>
-    <mat-icon>cloud_queue</mat-icon>
-    <span>Google Drive sync</span>
+  <button mat-menu-item *ngIf='(gapi.signed$ | async) === false' (click)='gapi.signIn()'>
+    Sync with Google Drive
   </button>
 
-  <button mat-menu-item disabled='(gapi.signed$ | async) === false' (click)='gapi.signOut()'>
-    <mat-icon>cloud_off</mat-icon>
-    <span>Logout and cleanup</span>
+  <button mat-menu-item *ngIf='gapi.signed$ | async' (click)='logout()'>
+    Logout and cleanup
   </button>
 
-  <button mat-menu-item (click)='backup.downloadFile()'>
-    <mat-icon>file_download</mat-icon>
-    <span>Download backup</span>
+  <button mat-menu-item *ngIf='notes.length | async' (click)='backup.downloadFile()'>
+    Download backup
   </button>
 
   <button mat-menu-item (click)='uploadJSON()'>
-    <mat-icon>file_upload</mat-icon>
-    <span>Restore from backup</span>
+    Restore from backup
   </button>
 </mat-menu>
