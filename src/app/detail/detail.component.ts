@@ -25,7 +25,6 @@ export class DetailComponent implements OnInit, OnDestroy {
   public title: string;
   public content: string;
   public encrypted: boolean;
-  public locked: boolean;
 
   constructor(
     private crypto: CryptoService,
@@ -52,10 +51,8 @@ export class DetailComponent implements OnInit, OnDestroy {
     if (this.encrypted = note.content && note.content.encrypted) {
       try {
         this.content = await this.crypto.decrypt(note.content);
-        this.locked = false;
       } catch {
-        this.content = '';
-        this.locked = true;
+        this.content = null;
       }
     } else {
       this.content = note.content;

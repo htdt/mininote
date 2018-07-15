@@ -10,9 +10,9 @@ import { EditType } from '../detail.component';
 })
 export class ViewerComponent {
   @Input() title: string;
-  @Input() content: string;
-  @Input() locked: boolean;
+  @Input() content: string | null;
   @Input() encrypted: boolean;
+  get locked(): boolean { return this.content === null; }
 
   @Output() edit = new EventEmitter<EditType>();
   @Output() rm = new EventEmitter<any>();
