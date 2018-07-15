@@ -13,6 +13,7 @@ import {
   MatDialogModule,
   MatProgressSpinnerModule,
   MatMenuModule,
+  MatCheckboxModule,
 } from '@angular/material';
 
 @NgModule({
@@ -30,6 +31,7 @@ import {
     MatDialogModule,
     MatProgressSpinnerModule,
     MatMenuModule,
+    MatCheckboxModule,
   ],
 })
 export class AppMaterialModule { }

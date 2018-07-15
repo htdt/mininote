@@ -24,6 +24,11 @@ export class BackupService {
     private dialog: MatDialog,
   ) {}
 
+  reset() {
+    this.syncTS = '0';
+    this.unsaved = false;
+  }
+
   async start() {
     this.notes.list$.pipe(skip(1)).subscribe(_ => {
       if (this.skipCurListUpdate) this.skipCurListUpdate = false;

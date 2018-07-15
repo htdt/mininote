@@ -1,23 +1,24 @@
 <mat-card>
   <mat-card-content>
     <mat-form-field>
-      <input matInput placeholder="title" [(ngModel)]="title" #inputTitle
+      <input matInput placeholder='title' [(ngModel)]='title' #inputTitle
         matTooltip='use emoji as icon'>
     </mat-form-field>
 
     <mat-form-field>
       <textarea #inputContent matInput matTextareaAutosize
-        [(ngModel)]="content"
+        [(ngModel)]='content'
         (keypress)='keyPress($event)'
         (keyup)='keyUp($event)'>
       </textarea>
     </mat-form-field>
-    <a href='https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet'
-      target='_blank'>Markdown Cheatsheet</a>
+    <p><a href='https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet'
+      target='_blank'>Markdown Cheatsheet</a></p>
+    <mat-checkbox [(ngModel)]='encrypt'>Encrypt</mat-checkbox>
   </mat-card-content>
 
   <mat-card-actions>
-    <button mat-button (click)="emitSave()" matTooltip='shift + enter'>SAVE</button>
-    <button mat-button (click)="cancel.emit()">CANCEL</button>
+    <button mat-button (click)='emitSave()' matTooltip='shift + enter'>SAVE</button>
+    <button mat-button (click)='cancel.emit()'>CANCEL</button>
   </mat-card-actions>
 </mat-card>

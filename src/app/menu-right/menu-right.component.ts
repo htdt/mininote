@@ -4,6 +4,7 @@ import { GapiService } from '../core/gapi.service';
 import { BackupService } from '../core/backup.service';
 import { UploadJSONComponent } from './upload-json.component';
 import { NoteService } from '../core/note.service';
+import { CryptoService } from '../core/crypto.service';
 
 @Component({
   selector: 'app-menu-right',
@@ -15,6 +16,7 @@ export class MenuRightComponent {
     public gapi: GapiService,
     public backup: BackupService,
     public notes: NoteService,
+    public crypto: CryptoService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
   ) {}
@@ -33,5 +35,6 @@ export class MenuRightComponent {
   logout() {
     this.gapi.signOut();
     this.notes.update([]);
+    this.backup.reset();
   }
 }

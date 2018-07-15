@@ -1,11 +1,7 @@
 import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { Note } from '../../core/note';
+import { Note, NoteUpdate } from '../../core/note';
 import { EditType } from '../detail.component';
 
-export interface NoteText {
-  title: string;
-  content: string;
-}
 
 @Component({
   selector: 'app-editor',
@@ -13,27 +9,21 @@ export interface NoteText {
   styleUrls: ['./editor.component.css']
 })
 export class EditorComponent {
-  title: string;
-  content: string;
-
-  @Input() set note(note: Note) {
-    this.title = note.title;
-    this.content = note.content;
-  }
-
+  @Input() title: string;
+  @Input() content: string;
+  @Input() encrypt: boolean;
   @Input() set focus(focus: EditType) {
     if (focus == EditType.Title) this.inputTitle.nativeElement.focus();
     if (focus == EditType.Content) this.inputContent.nativeElement.focus();
   }
-
-  @Output() save = new EventEmitter<NoteText>();
+  @Output() save = new EventEmitter<NoteUpdate>();
   @Output() cancel = new EventEmitter<any>();
 
   @ViewChild('inputTitle') inputTitle: ElementRef;
   @ViewChild('inputContent') inputContent: ElementRef;
 
   emitSave() {
-    this.save.emit({title: this.title, content: this.content});
+    this.save.emit({title: this.title, content: this.content, encrypt: this.encrypt});
   }
 
   keyPress(e: KeyboardEvent) {

@@ -9,17 +9,17 @@ import { EditType } from '../detail.component';
   styleUrls: ['./viewer.component.css']
 })
 export class ViewerComponent {
-  title: string;
-  content: string;
-
-  @Input() set note(note: Note) {
-    this.title = note.title;
-    this.content = note.content ? marked(note.content) : '';
-  }
+  @Input() title: string;
+  @Input() content: string;
+  @Input() locked: boolean;
+  @Input() encrypted: boolean;
 
   @Output() edit = new EventEmitter<EditType>();
   @Output() rm = new EventEmitter<any>();
+  @Output() unlock = new EventEmitter<any>();
 
   clickTitle() { this.edit.emit(EditType.Title); }
   clickEdit() { this.edit.emit(EditType.Content); }
+
+  marked(str: string): string { return str ? marked(str) : ''; }
 }

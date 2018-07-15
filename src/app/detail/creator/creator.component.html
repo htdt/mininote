@@ -1,6 +1,8 @@
 <app-editor
-  [note]="note"
-  [focus]="1"
-  (save)="save($event)"
-  (cancel)="cancel()">
+  [title]=''
+  [content]=''
+  [encrypt]='false'
+  [focus]='1'
+  (save)='save($event)'
+  (cancel)='cancel()'>
 </app-editor>

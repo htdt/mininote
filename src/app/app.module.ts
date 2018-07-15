@@ -16,6 +16,7 @@ import { CreatorComponent } from './detail/creator/creator.component';
 import { LatestComponent } from './latest/latest.component';
 import { CoreModule } from './core/core.module';
 import { MenuRightComponent } from './menu-right/menu-right.component';
+import { UploadJSONComponent } from './menu-right/upload-json.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,9 @@ import { MenuRightComponent } from './menu-right/menu-right.component';
     CreatorComponent,
     LatestComponent,
     MenuRightComponent,
+    UploadJSONComponent,
   ],
+  entryComponents: [UploadJSONComponent],
   imports: [
     BrowserModule,
     ServiceWorkerModule.register(

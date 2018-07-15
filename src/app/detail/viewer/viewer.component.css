@@ -8,3 +8,13 @@
 .rm:hover {
   color: #333;
 }
+
+mat-card-title {
+  display: flex;
+  align-items: center;
+}
+
+mat-card-title mat-icon {
+  color: #999;
+  padding-left: 2px;
+}

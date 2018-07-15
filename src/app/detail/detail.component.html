@@ -1,13 +1,19 @@
 <app-viewer
-  *ngIf="!edit"
-  [note]="note"
-  (edit)="editOn($event)"
-  (rm)="rm()">
+  *ngIf='!edit'
+  [title]='title'
+  [content]='content'
+  [locked]='locked'
+  [encrypted]='encrypted'
+  (edit)='editOn($event)'
+  (rm)='rm()'
+  (unlock)='unlock()'>
 </app-viewer>
 <app-editor
-  *ngIf="edit"
-  [note]="note"
-  [focus]="focus"
-  (save)="save($event)"
-  (cancel)="editOff()">
+  *ngIf='edit'
+  [title]='title'
+  [content]='content'
+  [encrypt]='encrypted'
+  [focus]='focus'
+  (save)='save($event)'
+  (cancel)='editOff()'>
 </app-editor>

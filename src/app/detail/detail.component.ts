@@ -4,8 +4,8 @@ import { skip } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
 import { NoteService } from '../core/note.service';
-import { Note } from '../core/note';
-import { NoteText } from './editor/editor.component';
+import { CryptoService } from '../core/crypto.service';
+import { NoteUpdate } from '../core/note';
 
 export enum EditType {Normal, Title, Content}
 
@@ -15,18 +15,23 @@ export enum EditType {Normal, Title, Content}
   styleUrls: ['./detail.component.css']
 })
 export class DetailComponent implements OnInit, OnDestroy {
-  note: Note;
   edit = false;
   focus: EditType;
 
   private routeSub: Subscription;
   private notesSub: Subscription;
+  private cryptoSub: Subscription;
   private id: number;
+  public title: string;
+  public content: string;
+  public encrypted: boolean;
+  public locked: boolean;
 
   constructor(
+    private crypto: CryptoService,
     private route: ActivatedRoute,
     private router: Router,
-    private notes: NoteService
+    private notes: NoteService,
   ) {}
 
   ngOnInit() {
@@ -36,17 +41,29 @@ export class DetailComponent implements OnInit, OnDestroy {
     });
     this.notesSub = this.notes.list$.pipe(skip(1))
       .subscribe(() => this.updateNote());
+    this.cryptoSub = this.crypto.unlocked$.subscribe(_ => this.updateNote());
   }
 
-  private updateNote(): void {
+  private async updateNote() {
     if (isNaN(this.id)) return;
-    this.note = this.notes.get(this.id);
-    if (this.note == undefined) this.router.navigateByUrl('/');
+    const note = this.notes.get(this.id);
+    if (note == undefined) return this.router.navigateByUrl('/');
+
+    this.title = note.title;
+    this.encrypted = note.content && note.content.encrypted;
+    try {
+      this.content = this.encrypted ? await this.crypto.decrypt(note.content) : note.content;
+      this.locked = false;
+    } catch {
+      this.content = '';
+      this.locked = true;
+    }
   }
 
   ngOnDestroy() {
     this.routeSub.unsubscribe();
     this.notesSub.unsubscribe();
+    this.cryptoSub.unsubscribe();
   }
 
   editOn(e) {
@@ -58,15 +75,16 @@ export class DetailComponent implements OnInit, OnDestroy {
     this.edit = false;
   }
 
-  save(e: NoteText) {
-    this.note.title = e.title;
-    this.note.content = e.content;
-    this.notes.save(this.note);
-    this.editOff();
+  unlock() {
+    this.crypto.unlock(this.notes.validationCifer());
+  }
+
+  async save(e: NoteUpdate) {
+    if (await this.notes.save({id: this.id, ...e}) !== null) this.editOff();
   }
 
   rm() {
-    this.notes.rm(this.note.id);
+    this.notes.rm(this.id);
     this.router.navigateByUrl('/');
   }
 }
