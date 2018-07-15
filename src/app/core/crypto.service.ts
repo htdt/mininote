@@ -38,7 +38,7 @@ export class CryptoService {
       try {
         await this.decrypt(val);
       } catch {
-        this.lock();
+        this.pwd = undefined;
         this.snackBar.open(`Password doesn't match encrypted note`, 'Ok', { duration: 5000 });
         return false;
       }

@@ -39,24 +39,26 @@ export class DetailComponent implements OnInit, OnDestroy {
       this.id = parseInt(m.get('id'), 10);
       this.updateNote();
     });
-    this.notesSub = this.notes.list$.pipe(skip(1))
-      .subscribe(() => this.updateNote());
-    this.cryptoSub = this.crypto.unlocked$.subscribe(_ => this.updateNote());
+    this.notesSub = this.notes.list$.pipe(skip(1)).subscribe(this.updateNote);
+    this.cryptoSub = this.crypto.unlocked$.subscribe(this.updateNote);
   }
 
-  private async updateNote() {
+  private updateNote = async () => {
     if (isNaN(this.id)) return;
     const note = this.notes.get(this.id);
     if (note == undefined) return this.router.navigateByUrl('/');
 
     this.title = note.title;
-    this.encrypted = note.content && note.content.encrypted;
-    try {
-      this.content = this.encrypted ? await this.crypto.decrypt(note.content) : note.content;
-      this.locked = false;
-    } catch {
-      this.content = '';
-      this.locked = true;
+    if (this.encrypted = note.content && note.content.encrypted) {
+      try {
+        this.content = await this.crypto.decrypt(note.content);
+        this.locked = false;
+      } catch {
+        this.content = '';
+        this.locked = true;
+      }
+    } else {
+      this.content = note.content;
     }
   }
 

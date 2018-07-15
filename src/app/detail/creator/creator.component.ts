@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
-
 import { NoteService } from '../../core/note.service';
 import { Note, NoteUpdate } from '../../core/note';
 
