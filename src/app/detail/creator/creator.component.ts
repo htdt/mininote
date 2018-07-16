@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
 import { NoteService } from '../../core/note.service';
 import { Note, NoteUpdate } from '../../core/note';
+import { CryptoService } from '../../core/crypto.service';
+import { PasswordDialogComponent } from '../../password-dialog/password-dialog.component';
 
 @Component({
   selector: 'app-creator',
@@ -11,12 +14,18 @@ import { Note, NoteUpdate } from '../../core/note';
 export class CreatorComponent {
   constructor(
     private router: Router,
-    private noteService: NoteService,
+    private notes: NoteService,
+    private crypto: CryptoService,
+    private dialog: MatDialog,
   ) {}
 
+  unlock() {
+    return this.dialog.open(PasswordDialogComponent).afterClosed().toPromise();
+  }
+
   async save(e: NoteUpdate) {
-    const id = await this.noteService.save(e);
-    if (id !== null) this.router.navigate(['note', id]);
+    if (e.encrypt && !this.crypto.unlocked$.getValue() && !await this.unlock()) return;
+    this.router.navigate(['note', await this.notes.save(e)]);
   }
 
   cancel() {

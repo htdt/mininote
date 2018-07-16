@@ -11,6 +11,6 @@
 
   <mat-card-actions>
     <button *ngIf='!locked' mat-button (click)='clickEdit()'>EDIT</button>
-    <button *ngIf='locked' mat-button (click)='unlock.emit()'>UNLOCK</button>
+    <button *ngIf='locked' mat-button (click)='unlock.emit()'>DECRYPT</button>
   </mat-card-actions>
 </mat-card>

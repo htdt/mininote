@@ -1,7 +1,7 @@
 <mat-spinner *ngIf='backup.pending$ | async' color='accent' diameter='30'></mat-spinner>
 
 
-<button *ngIf='crypto.unlocked$ | async' mat-icon-button (click)='crypto.lock()'
+<button *ngIf='crypto.unlocked$ | async' mat-icon-button (click)='crypto.setPassword()'
   matTooltip='lock encrypted notes'>
   <mat-icon>lock_open</mat-icon>
 </button>

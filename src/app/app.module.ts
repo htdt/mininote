@@ -17,6 +17,7 @@ import { LatestComponent } from './latest/latest.component';
 import { CoreModule } from './core/core.module';
 import { MenuRightComponent } from './menu-right/menu-right.component';
 import { UploadJSONComponent } from './menu-right/upload-json.component';
+import { PasswordDialogComponent } from './password-dialog/password-dialog.component';
 
 @NgModule({
   declarations: [
@@ -29,8 +30,12 @@ import { UploadJSONComponent } from './menu-right/upload-json.component';
     LatestComponent,
     MenuRightComponent,
     UploadJSONComponent,
+    PasswordDialogComponent,
   ],
-  entryComponents: [UploadJSONComponent],
+  entryComponents: [
+    UploadJSONComponent,
+    PasswordDialogComponent,
+  ],
   imports: [
     BrowserModule,
     ServiceWorkerModule.register(

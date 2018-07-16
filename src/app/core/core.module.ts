@@ -6,19 +6,18 @@ import { NoteService } from './note.service';
 import { GapiService } from './gapi.service';
 import { BackupService } from './backup.service';
 import { MergeDialogComponent } from './merge-dialog.component';
-import { PasswordDialogComponent } from './password-dialog.component';
 
 @NgModule({
   imports: [
     CommonModule,
     AppMaterialModule,
   ],
-  declarations: [MergeDialogComponent, PasswordDialogComponent],
-  entryComponents: [MergeDialogComponent, PasswordDialogComponent],
+  declarations: [MergeDialogComponent],
+  entryComponents: [MergeDialogComponent],
   providers: [
     NoteService,
     GapiService,
     BackupService
   ]
 })
-export class CoreModule { }
+export class CoreModule {}

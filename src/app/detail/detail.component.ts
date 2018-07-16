@@ -1,11 +1,14 @@
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
 import { skip } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
 import { NoteService } from '../core/note.service';
 import { CryptoService } from '../core/crypto.service';
 import { NoteUpdate } from '../core/note';
+import { PasswordDialogComponent } from '../password-dialog/password-dialog.component';
+
 
 export enum EditType {Normal, Title, Content}
 
@@ -30,7 +33,8 @@ export class DetailComponent implements OnInit, OnDestroy {
     private crypto: CryptoService,
     private route: ActivatedRoute,
     private router: Router,
-    private notes: NoteService,
+    private dialog: MatDialog,
+    public notes: NoteService,
   ) {}
 
   ngOnInit() {
@@ -75,11 +79,13 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   unlock() {
-    this.crypto.unlock(this.notes.validationCifer());
+    return this.dialog.open(PasswordDialogComponent).afterClosed().toPromise();
   }
 
   async save(e: NoteUpdate) {
-    if (await this.notes.save({id: this.id, ...e}) !== null) this.editOff();
+    if (e.encrypt && !this.crypto.unlocked$.getValue() && !await this.unlock()) return;
+    await this.notes.save({id: this.id, ...e});
+    this.editOff();
   }
 
   rm() {

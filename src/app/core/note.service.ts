@@ -46,7 +46,7 @@ export class NoteService {
   private async createNote(e: NoteUpdate): Promise<Note> {
     let content = e.content;
     if (e.encrypt) {
-      if (!await this.crypto.unlock(this.validationCifer())) return null;
+      if (!this.crypto.unlocked$.getValue()) throw new Error('Encrypt note: password not set');
       content = await this.crypto.encrypt(e.content);
     }
     return {updated: Date.now(), id: e.id, title: e.title, content};
