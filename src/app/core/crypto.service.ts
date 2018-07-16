@@ -1,7 +1,6 @@
 import * as aes4js from 'aes4js';
 import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material';
 import { Cifer } from './note';
 
 @Injectable({

@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { Note, NoteUpdate } from '../../core/note';
+import { NoteUpdate } from '../../core/note';
 import { EditType } from '../detail.component';
 
 

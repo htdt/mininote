@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { first } from 'rxjs/operators';
-
-import { Note } from './note';
 
 const gapiUrl = 'https://apis.google.com/js/api.js';
 const discoveryDocs = ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'];
@@ -97,7 +94,7 @@ export class GapiService {
   }
 
   // unused, just in case
-  private rm(fileId: string): Promise<any> {
-    return gapi.client.drive.files.delete({fileId});
-  }
+  // private rm(fileId: string): Promise<any> {
+  //   return gapi.client.drive.files.delete({fileId});
+  // }
 }

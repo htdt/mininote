@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { NoteService } from '../../core/note.service';
-import { Note, NoteUpdate } from '../../core/note';
+import { NoteUpdate } from '../../core/note';
 import { CryptoService } from '../../core/crypto.service';
 import { PasswordDialogComponent } from '../../password-dialog/password-dialog.component';
 
