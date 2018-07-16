@@ -1,6 +1,5 @@
 import * as marked from 'marked';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Note } from '../../core/note';
 import { EditType } from '../detail.component';
 
 @Component({
@@ -18,8 +17,9 @@ export class ViewerComponent {
   @Output() rm = new EventEmitter<any>();
   @Output() unlock = new EventEmitter<any>();
 
-  clickTitle() { this.edit.emit(EditType.Title); }
-  clickEdit() { this.edit.emit(EditType.Content); }
+  emitEdit(focusTitle = false) {
+    if (!this.locked) this.edit.emit(focusTitle ? EditType.Title : EditType.Content);
+  }
 
   marked(str: string): string { return str ? marked(str) : ''; }
 }

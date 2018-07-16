@@ -1,5 +1,5 @@
 <mat-card>
-  <mat-card-title (click)='clickTitle()'>
+  <mat-card-title (click)='emitEdit(true)'>
     <span>{{title}}</span>
     <mat-icon *ngIf='encrypted'>lock</mat-icon>
   </mat-card-title>
@@ -10,7 +10,7 @@
   </button>    
 
   <mat-card-actions>
-    <button *ngIf='!locked' mat-button (click)='clickEdit()'>EDIT</button>
+    <button *ngIf='!locked' mat-button (click)='emitEdit(false)'>EDIT</button>
     <button *ngIf='locked' mat-button (click)='unlock.emit()'>DECRYPT</button>
   </mat-card-actions>
 </mat-card>
