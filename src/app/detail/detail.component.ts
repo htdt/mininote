@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { skip } from 'rxjs/operators';
@@ -28,6 +28,10 @@ export class DetailComponent implements OnInit, OnDestroy {
   public title: string;
   public content: string;
   public encrypted: boolean;
+
+  @HostListener('document:keypress', ['$event']) onKeypress(e) {
+    if (e.key == 'e' && e.ctrlKey) this.editOn(EditType.Content);
+  }
 
   constructor(
     private crypto: CryptoService,

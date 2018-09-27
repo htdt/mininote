@@ -1,0 +1,13 @@
+<mat-form-field>
+  <input type='text' matInput [matAutocomplete]='auto' [formControl]='inputControl'>
+  <mat-autocomplete
+    #auto='matAutocomplete'
+    (optionSelected)='optionSelected($event)'
+    [displayWith]='displayFn'
+    autoActiveFirstOption
+  >
+    <mat-option *ngFor='let n of filteredNotes | async' [value]='n'>
+      {{n.title}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

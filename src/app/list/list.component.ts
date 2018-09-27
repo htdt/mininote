@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Note } from '../core/note';
 import { NoteService } from '../core/note.service';
+import { MatDialog } from '@angular/material';
+import { ListDialogComponent } from './list-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -10,7 +13,21 @@ import { NoteService } from '../core/note.service';
 export class ListComponent implements OnInit {
   list: Note[];
 
-  constructor(private noteService: NoteService) {}
+  @HostListener('document:keypress', ['$event']) onKeypress(e) {
+    if (e.key == 'p' && e.ctrlKey) {
+      this.dialog.open(ListDialogComponent, {
+        data: this.list,
+        position: {top: '5vh'},
+      }).afterClosed().subscribe(async noteId =>
+        noteId !== undefined && this.router.navigate(['note', noteId]));
+    }
+  }
+
+  constructor(
+    private noteService: NoteService,
+    private dialog: MatDialog,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
     this.noteService.list$.subscribe(x =>

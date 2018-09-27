@@ -14,6 +14,8 @@ import {
   MatProgressSpinnerModule,
   MatMenuModule,
   MatCheckboxModule,
+  MatAutocompleteModule,
+  MatOptionModule,
 } from '@angular/material';
 
 @NgModule({
@@ -32,6 +34,8 @@ import {
     MatProgressSpinnerModule,
     MatMenuModule,
     MatCheckboxModule,
-  ],
+    MatAutocompleteModule,
+    MatOptionModule,
+    ],
 })
 export class AppMaterialModule { }

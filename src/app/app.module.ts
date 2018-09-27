@@ -1,6 +1,6 @@
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
@@ -18,6 +18,7 @@ import { CoreModule } from './core/core.module';
 import { MenuRightComponent } from './menu-right/menu-right.component';
 import { UploadJSONComponent } from './menu-right/upload-json.component';
 import { PasswordDialogComponent } from './password-dialog/password-dialog.component';
+import { ListDialogComponent } from './list/list-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,10 +32,12 @@ import { PasswordDialogComponent } from './password-dialog/password-dialog.compo
     MenuRightComponent,
     UploadJSONComponent,
     PasswordDialogComponent,
+    ListDialogComponent,
   ],
   entryComponents: [
     UploadJSONComponent,
     PasswordDialogComponent,
+    ListDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +46,7 @@ import { PasswordDialogComponent } from './password-dialog/password-dialog.compo
       { enabled: environment.production }
     ),
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AppMaterialModule,
