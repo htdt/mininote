@@ -158,6 +158,14 @@
             this.isCritical = true;
         }
     }
+    function errorToString(error) {
+        if (error instanceof Error) {
+            return `${error.message}\n${error.stack}`;
+        }
+        else {
+            return `${error}`;
+        }
+    }
 
     /**
      * @license
@@ -449,14 +457,18 @@
                     // Figure out if there is a max-age directive in the Cache-Control header.
                     const cacheControl = res.headers.get('Cache-Control');
                     const cacheDirectives = cacheControl
+                        // Directives are comma-separated within the Cache-Control header value.
                         .split(',')
+                        // Make sure each directive doesn't have extraneous whitespace.
                         .map(v => v.trim())
+                        // Some directives have values (like maxage and s-maxage)
                         .map(v => v.split('='));
                     // Lowercase all the directive names.
                     cacheDirectives.forEach(v => v[0] = v[0].toLowerCase());
                     // Find the max-age directive, if one exists.
-                    const cacheAge = cacheDirectives.filter(v => v[0] === 'max-age').map(v => v[1])[0];
-                    if (cacheAge.length === 0) {
+                    const maxAgeDirective = cacheDirectives.find(v => v[0] === 'max-age');
+                    const cacheAge = maxAgeDirective ? maxAgeDirective[1] : undefined;
+                    if (!cacheAge) {
                         // No usable TTL defined. Must assume that the response is stale.
                         return true;
                     }
@@ -543,6 +555,7 @@
                 // Start with the set of all cached URLs.
                 return (yield cache.keys())
                     .map(request => request.url)
+                    // Exclude the URLs which have hashes.
                     .filter(url => !this.hashes.has(url));
             });
         }
@@ -575,23 +588,32 @@
                     if (!res.ok) {
                         throw new Error(`Response not Ok (fetchAndCacheOnce): request for ${req.url} returned response ${res.status} ${res.statusText}`);
                     }
-                    // This response is safe to cache (as long as it's cloned). Wait until the cache operation
-                    // is complete.
-                    const cache = yield this.scope.caches.open(`${this.prefix}:${this.config.name}:cache`);
-                    yield cache.put(req, res.clone());
-                    // If the request is not hashed, update its metadata, especially the timestamp. This is needed
-                    // for future determination of whether this cached response is stale or not.
-                    if (!this.hashes.has(req.url)) {
-                        // Metadata is tracked for requests that are unhashed.
-                        const meta = { ts: this.adapter.time, used };
-                        const metaTable = yield this.metadata;
-                        yield metaTable.write(req.url, meta);
+                    try {
+                        // This response is safe to cache (as long as it's cloned). Wait until the cache operation
+                        // is complete.
+                        const cache = yield this.scope.caches.open(`${this.prefix}:${this.config.name}:cache`);
+                        yield cache.put(req, res.clone());
+                        // If the request is not hashed, update its metadata, especially the timestamp. This is
+                        // needed for future determination of whether this cached response is stale or not.
+                        if (!this.hashes.has(req.url)) {
+                            // Metadata is tracked for requests that are unhashed.
+                            const meta = { ts: this.adapter.time, used };
+                            const metaTable = yield this.metadata;
+                            yield metaTable.write(req.url, meta);
+                        }
+                        return res;
                     }
-                    return res;
+                    catch (err) {
+                        // Among other cases, this can happen when the user clears all data through the DevTools,
+                        // but the SW is still running and serving another tab. In that case, trying to write to the
+                        // caches throws an `Entry was not found` error.
+                        // If this happens the SW can no longer work correctly. This situation is unrecoverable.
+                        throw new SwCriticalError(`Failed to update the caches for request to '${req.url}' (fetchAndCacheOnce): ${errorToString(err)}`);
+                    }
                 }
                 finally {
                     // Finally, it can be removed from `inFlightRequests`. This might result in a double-remove
-                    // if some other  chain was already making this request too, but that won't hurt anything.
+                    // if some other chain was already making this request too, but that won't hurt anything.
                     this.inFlightRequests.delete(req.url);
                 }
             });
@@ -764,8 +786,11 @@
                     // Select all of the previously cached resources. These are cached unhashed resources
                     // from previous versions of the app, in any asset group.
                     yield (yield updateFrom.previouslyCachedResources())
+                        // First, narrow down the set of resources to those which are handled by this group.
+                        // Either it's a known URL, or it matches a given pattern.
                         .filter(url => this.config.urls.some(cacheUrl => cacheUrl === url) ||
                         this.patterns.some(pattern => pattern.test(url)))
+                        // Finally, process each resource in turn.
                         .reduce((previous, url) => __awaiter(this, void 0, void 0, function* () {
                         yield previous;
                         const req = this.adapter.newRequest(url);
@@ -2348,7 +2373,7 @@ ${msgIdle}`, { headers: this.adapter.newHeaders({ 'Content-Type': 'text/plain' }
                     // network, but caches continue to be valid for previous versions. This is
                     // unfortunate but unavoidable.
                     this.state = DriverReadyState.EXISTING_CLIENTS_ONLY;
-                    this.stateMessage = `Degraded due to failed initialization: ${errorToString(err)}`;
+                    this.stateMessage = `Degraded due to: ${errorToString(err)}`;
                     // Cancel the binding for these clients.
                     Array.from(this.clientVersionMap.keys())
                         .forEach(clientId => this.clientVersionMap.delete(clientId));
@@ -2362,7 +2387,14 @@ ${msgIdle}`, { headers: this.adapter.newHeaders({ 'Content-Type': 'text/plain' }
                     // Push the affected clients onto the latest version.
                     affectedClients.forEach(clientId => this.clientVersionMap.set(clientId, this.latestHash));
                 }
-                yield this.sync();
+                try {
+                    yield this.sync();
+                }
+                catch (err2) {
+                    // We are already in a bad state. No need to make things worse.
+                    // Just log the error and move on.
+                    this.debugger.log(err2, `Driver.versionFailed(${err.message || err})`);
+                }
             });
         }
         setupUpdate(manifest, hash) {
@@ -2488,7 +2520,14 @@ ${msgIdle}`, { headers: this.adapter.newHeaders({ 'Content-Type': 'text/plain' }
          */
         lookupResourceWithHash(url, hash) {
             return Array
+                // Scan through the set of all cached versions, valid or otherwise. It's safe to do such
+                // lookups even for invalid versions as the cached version of a resource will have the
+                // same hash regardless.
                 .from(this.versions.values())
+                // Reduce the set of versions to a single potential result. At any point along the
+                // reduction, if a response has already been identified, then pass it through, as no
+                // future operation could change the response. If no response has been found yet, keep
+                // checking versions until one is or until all versions have been exhausted.
                 .reduce((prev, version) => __awaiter$5(this, void 0, void 0, function* () {
                 // First, check the previous result. If a non-null result has been found already, just
                 // return it.
@@ -2607,14 +2646,6 @@ ${msgIdle}`, { headers: this.adapter.newHeaders({ 'Content-Type': 'text/plain' }
             });
         }
     }
-    function errorToString(error) {
-        if (error instanceof Error) {
-            return `${error.message}\n${error.stack}`;
-        }
-        else {
-            return `${error}`;
-        }
-    }
 
     /**
      * @license
@@ -2628,4 +2659,3 @@ ${msgIdle}`, { headers: this.adapter.newHeaders({ 'Content-Type': 'text/plain' }
     const driver = new Driver(scope, adapter, new CacheDatabase(scope, adapter));
 
 }());
-//# sourceMappingURL=ngsw_worker.es6.js.map

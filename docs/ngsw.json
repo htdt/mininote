@@ -8,10 +8,10 @@
       "updateMode": "prefetch",
       "urls": [
         "/index.html",
-        "/main.489398e22ce33f52930e.js",
-        "/polyfills.001f1812942338ddb405.js",
-        "/runtime.a66f828dca56eeb90e02.js",
-        "/styles.331f43e2618d04c2c930.css"
+        "/main.326b7f11e0d61c7b511c.js",
+        "/polyfills.542e30e4ec0a2f0321ec.js",
+        "/runtime.ec2944dd8b20ec099bf3.js",
+        "/styles.4bd20dc406fb35fdf134.css"
       ],
       "patterns": []
     },
@@ -30,11 +30,11 @@
   "hashTable": {
     "/assets/favicon192.png": "43950742a4ede10c0c13409ac63c430360191437",
     "/assets/favicon32.png": "ad09fe99f37be0c1fec818aacb663820ccd040d4",
-    "/index.html": "15d58726010a19556c84d7872764f5b6699753db",
-    "/main.489398e22ce33f52930e.js": "df9e6415afb449f92102f149a99f4f6e3def2373",
-    "/polyfills.001f1812942338ddb405.js": "8949bb1b1e302dda246f6ed9c2da703270360b1f",
-    "/runtime.a66f828dca56eeb90e02.js": "078e320cc6fdaf355836c3b1c52b059cdd33fc7e",
-    "/styles.331f43e2618d04c2c930.css": "36fd869212111479d321c519db1a7dcdb0923da4"
+    "/index.html": "e5dee9cf1a857f62c9402693b9006ca8d346e580",
+    "/main.326b7f11e0d61c7b511c.js": "ba8dca52550897069115263861ac4e0c24002824",
+    "/polyfills.542e30e4ec0a2f0321ec.js": "346dc09cec5b1e38b83c6f0e17720958e1e4fbf0",
+    "/runtime.ec2944dd8b20ec099bf3.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
+    "/styles.4bd20dc406fb35fdf134.css": "10c4fb9c1d66f5d12d2fcaf66afceda89ac7faeb"
   },
   "navigationUrls": [
     {
@@ -43,15 +43,15 @@
     },
     {
       "positive": false,
-      "regex": "^\\/(?:.+\\/)?[^\\/]*\\.[^\\/]*$"
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
     },
     {
       "positive": false,
-      "regex": "^\\/(?:.+\\/)?[^\\/]*__[^\\/]*$"
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
     },
     {
       "positive": false,
-      "regex": "^\\/(?:.+\\/)?[^\\/]*__[^\\/]*\\/.*$"
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
     }
   ]
 }
