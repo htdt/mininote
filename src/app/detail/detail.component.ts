@@ -30,7 +30,9 @@ export class DetailComponent implements OnInit, OnDestroy {
   public encrypted: boolean;
 
   @HostListener('document:keypress', ['$event']) onKeypress(e: KeyboardEvent) {
-    if (e.key == 'Enter' && !e.shiftKey && !this.edit) this.editOn(EditType.Content);
+    if (e.key == 'Enter' && !e.shiftKey && !this.encrypted && !this.edit) {
+      this.editOn(EditType.Content);
+    }
   }
 
   constructor(
