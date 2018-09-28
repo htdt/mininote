@@ -8,7 +8,7 @@
       "updateMode": "prefetch",
       "urls": [
         "/index.html",
-        "/main.5cfcb96c6775d943676a.js",
+        "/main.d84e19460dda5d765307.js",
         "/polyfills.542e30e4ec0a2f0321ec.js",
         "/runtime.ec2944dd8b20ec099bf3.js",
         "/styles.4bd20dc406fb35fdf134.css"
@@ -30,8 +30,8 @@
   "hashTable": {
     "/assets/favicon192.png": "43950742a4ede10c0c13409ac63c430360191437",
     "/assets/favicon32.png": "ad09fe99f37be0c1fec818aacb663820ccd040d4",
-    "/index.html": "cdded72221200d4bc7500252ca1d8f910da04e5c",
-    "/main.5cfcb96c6775d943676a.js": "717730d221513f062ffa9e0bfd354ef73a53a4a2",
+    "/index.html": "4b94f850e64d0a8fc106fd77e7960acf9cbaa0e9",
+    "/main.d84e19460dda5d765307.js": "60fd2792bb72f5e8b8691a4c966c9a50297190d9",
     "/polyfills.542e30e4ec0a2f0321ec.js": "346dc09cec5b1e38b83c6f0e17720958e1e4fbf0",
     "/runtime.ec2944dd8b20ec099bf3.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
     "/styles.4bd20dc406fb35fdf134.css": "10c4fb9c1d66f5d12d2fcaf66afceda89ac7faeb"
