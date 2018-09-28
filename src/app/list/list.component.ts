@@ -14,7 +14,7 @@ export class ListComponent implements OnInit {
   list: Note[];
 
   @HostListener('document:keypress', ['$event']) onKeypress(e) {
-    if (e.key == 'p' && e.ctrlKey) {
+    if (e.key == 'P' && e.ctrlKey) {
       this.dialog.open(ListDialogComponent, {
         data: this.list,
         position: {top: '5vh'},
