@@ -1,5 +1,5 @@
 import * as marked from 'marked';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostListener } from '@angular/core';
 import { EditType } from '../detail.component';
 
 @Component({
@@ -16,6 +16,13 @@ export class ViewerComponent {
   @Output() edit = new EventEmitter<EditType>();
   @Output() rm = new EventEmitter<any>();
   @Output() unlock = new EventEmitter<any>();
+
+  @HostListener('document:keypress', ['$event']) onKeypress(e: KeyboardEvent) {
+    if (e.key == 'Enter' && e.shiftKey) {
+      e.preventDefault();
+      this.locked ? this.unlock.emit() : this.emitEdit();
+    }
+  }
 
   emitEdit(focusTitle = false) {
     if (!this.locked) this.edit.emit(focusTitle ? EditType.Title : EditType.Content);

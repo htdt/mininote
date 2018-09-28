@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { skip } from 'rxjs/operators';
@@ -28,12 +28,6 @@ export class DetailComponent implements OnInit, OnDestroy {
   public title: string;
   public content: string;
   public encrypted: boolean;
-
-  @HostListener('document:keypress', ['$event']) onKeypress(e: KeyboardEvent) {
-    if (e.key == 'Enter' && !e.shiftKey && !this.encrypted && !this.edit) {
-      this.editOn(EditType.Content);
-    }
-  }
 
   constructor(
     private crypto: CryptoService,

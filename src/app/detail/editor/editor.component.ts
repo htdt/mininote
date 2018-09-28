@@ -27,7 +27,10 @@ export class EditorComponent {
   }
 
   keyPress(e: KeyboardEvent) {
-    if (e.key == 'Enter' && e.shiftKey) this.emitSave();
+    if (e.key == 'Enter' && e.shiftKey) {
+      e.preventDefault();
+      setTimeout(() => this.emitSave(), 1); // skip frame to prevent trigger edit
+    }
   }
 
   keyUp(e: KeyboardEvent) { // Escape captured only with keyUp
