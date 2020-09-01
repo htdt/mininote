@@ -18,7 +18,7 @@ export class CryptoService {
     return aes4js.decrypt(p || this.password, cipher);
   }
 
-  setPassword(val?: string) {
+  setPassword(val?: string): void {
     this.password = val;
     this.unlocked$.next(!!this.password);
   }

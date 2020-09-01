@@ -34,11 +34,6 @@ import { ListDialogComponent } from './list/list-dialog.component';
     PasswordDialogComponent,
     ListDialogComponent,
   ],
-  entryComponents: [
-    UploadJSONComponent,
-    PasswordDialogComponent,
-    ListDialogComponent,
-  ],
   imports: [
     BrowserModule,
     ServiceWorkerModule.register(

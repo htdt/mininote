@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { skip } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
@@ -37,7 +37,7 @@ export class DetailComponent implements OnInit, OnDestroy {
     public notes: NoteService,
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.routeSub = this.route.paramMap.subscribe(m => {
       this.id = parseInt(m.get('id'), 10);
       this.updateNote();
@@ -52,7 +52,8 @@ export class DetailComponent implements OnInit, OnDestroy {
     if (note == undefined) return this.router.navigateByUrl('/');
 
     this.title = note.title;
-    if (this.encrypted = note.content && note.content.encrypted) {
+    this.encrypted = note.content && note.content.encrypted;
+    if (this.encrypted) {
       try {
         this.content = await this.crypto.decrypt(note.content);
       } catch {
@@ -63,32 +64,32 @@ export class DetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.routeSub.unsubscribe();
     this.notesSub.unsubscribe();
     this.cryptoSub.unsubscribe();
   }
 
-  editOn(e) {
+  editOn(e): void {
     this.edit = true;
     this.focus = e;
   }
 
-  editOff() {
+  editOff(): void {
     this.edit = false;
   }
 
-  unlock() {
+  unlock(): Promise<any> {
     return this.dialog.open(PasswordDialogComponent).afterClosed().toPromise();
   }
 
-  async save(e: NoteUpdate) {
+  async save(e: NoteUpdate): Promise<void> {
     if (e.encrypt && !this.crypto.unlocked$.getValue() && !await this.unlock()) return;
     await this.notes.save({id: this.id, ...e});
     this.editOff();
   }
 
-  rm() {
+  rm(): void {
     this.notes.rm(this.id);
     this.router.navigateByUrl('/');
   }

@@ -1,4 +1,4 @@
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Component } from '@angular/core';
 
 @Component({
@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
 })
 export class UploadJSONComponent {
   constructor(private dialogRef: MatDialogRef<UploadJSONComponent>) {}
-  upload(file: File) {
+  upload(file: File): void {
     if (!file) return;
     const reader = new FileReader();
     reader.onload = () => this.dialogRef.close(reader.result);

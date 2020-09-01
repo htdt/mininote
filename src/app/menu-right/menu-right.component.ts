@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { GapiService } from '../core/gapi.service';
 import { BackupService } from '../core/backup.service';
 import { UploadJSONComponent } from './upload-json.component';
@@ -21,7 +22,7 @@ export class MenuRightComponent {
     private snackBar: MatSnackBar,
   ) {}
 
-  uploadJSON() {
+  uploadJSON(): void {
     this.dialog.open(UploadJSONComponent).afterClosed().subscribe(async result => {
       if (!result) return;
       try {
@@ -32,7 +33,7 @@ export class MenuRightComponent {
     });
   }
 
-  logout() {
+  logout(): void {
     this.gapi.signOut();
     this.notes.update([]);
     this.backup.reset();

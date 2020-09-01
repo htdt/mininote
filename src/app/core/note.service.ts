@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
-import { BehaviorSubject } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Note, NoteUpdate, Cifer } from './note';
 import { CryptoService } from './crypto.service';
@@ -20,7 +20,7 @@ export class NoteService {
       localStorage.setItem('mininoteDB', JSON.stringify(x)));
   }
 
-  get length() {
+  get length(): Observable<number> {
     return this.list$.pipe(map(x => x.length));
   }
 

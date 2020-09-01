@@ -20,7 +20,7 @@ export class GapiService {
 
   private fileId: string;
   private initialized = false;
-  private get gauth() { return gapi.auth2.getAuthInstance(); }
+  private get gauth(): any { return gapi.auth2.getAuthInstance(); }
 
   signIn(): void { this.gauth.signIn(); }
   signOut(): void { this.gauth.signOut(); }
@@ -86,7 +86,7 @@ export class GapiService {
       const node = document.createElement('script');
       node.src = gapiUrl;
       node.type = 'text/javascript';
-      node.charset = 'utf-8';
+      // node.charset = 'utf-8';
       document.getElementsByTagName('head')[0].appendChild(node);
       node.onload = resolve;
       node.onerror = reject;

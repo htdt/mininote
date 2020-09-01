@@ -19,21 +19,21 @@ export class EditorComponent {
   @Output() save = new EventEmitter<NoteUpdate>();
   @Output() cancel = new EventEmitter<any>();
 
-  @ViewChild('inputTitle') inputTitle: ElementRef;
-  @ViewChild('inputContent') inputContent: ElementRef;
+  @ViewChild('inputTitle', {static: true}) inputTitle: ElementRef;
+  @ViewChild('inputContent', {static: true}) inputContent: ElementRef;
 
-  emitSave() {
+  emitSave(): void {
     this.save.emit({title: this.title, content: this.content, encrypt: this.encrypt});
   }
 
-  keyPress(e: KeyboardEvent) {
+  keyPress(e: KeyboardEvent): void {
     if (e.key == 'Enter' && e.shiftKey) {
       e.preventDefault();
       setTimeout(() => this.emitSave(), 1); // skip frame to prevent trigger edit
     }
   }
 
-  keyUp(e: KeyboardEvent) { // Escape captured only with keyUp
+  keyUp(e: KeyboardEvent): void { // Escape captured only with keyUp
     if (e.key == 'Escape') this.cancel.emit();
   }
 }

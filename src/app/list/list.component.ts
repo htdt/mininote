@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Note } from '../core/note';
 import { NoteService } from '../core/note.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ListDialogComponent } from './list-dialog.component';
 import { Router } from '@angular/router';
 
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class ListComponent implements OnInit {
   list: Note[];
 
-  @HostListener('document:keypress', ['$event']) onKeypress(e) {
+  @HostListener('document:keypress', ['$event']) onKeypress(e): void {
     if (e.key == 'P' && e.ctrlKey) {
       this.dialog.open(ListDialogComponent, {
         data: this.list,
@@ -29,7 +29,7 @@ export class ListComponent implements OnInit {
     private router: Router,
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.noteService.list$.subscribe(x =>
       this.list = x.sort((n1, n2) => n2.updated - n1.updated));
   }

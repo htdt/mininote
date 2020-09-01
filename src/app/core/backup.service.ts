@@ -4,17 +4,19 @@ import { skip, filter, throttleTime, delay } from 'rxjs/operators';
 
 import { GapiService } from './gapi.service';
 import { NoteService } from './note.service';
-import { MatSnackBar, MatDialog } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { MergeDialogComponent } from './merge-dialog.component';
 
 @Injectable()
 export class BackupService {
   pending$ = new BehaviorSubject<boolean>(false);
   skipCurListUpdate = false;
+  lastSync = 0;
 
-  get syncTS()     { return localStorage.getItem('syncTS'); }
+  get syncTS(): string { return localStorage.getItem('syncTS'); }
   set syncTS(x: string)   { localStorage.setItem('syncTS', x); }
-  get unsaved()    { return localStorage.getItem('unsaved') == 'true'; }
+  get unsaved(): boolean { return localStorage.getItem('unsaved') == 'true'; }
   set unsaved(x: boolean) { localStorage.setItem('unsaved', x.toString()); }
 
   constructor(
@@ -24,12 +26,12 @@ export class BackupService {
     private dialog: MatDialog,
   ) {}
 
-  reset() {
+  reset(): void {
     this.syncTS = '0';
     this.unsaved = false;
   }
 
-  async start() {
+  async start(): Promise<void> {
     this.notes.list$.pipe(skip(1)).subscribe(_ => {
       if (this.skipCurListUpdate) this.skipCurListUpdate = false;
       else {
@@ -40,16 +42,20 @@ export class BackupService {
 
     this.gapi.signed$.pipe(filter(f => f)).subscribe(this.syncSafe);
 
-    fromEvent(document, 'visibilitychange')
-      .pipe(throttleTime(60 * 1000))
-      .pipe(filter(() => !document.hidden))
-      .pipe(throttleTime(5 * 60 * 1000))
-      .pipe(delay(1000))
-      .subscribe(this.syncSafe);
+    // fromEvent(document, 'visibilitychange')
+    //   .pipe(throttleTime(60 * 1000))
+    //   .pipe(filter(() => !document.hidden))
+    //   .pipe(throttleTime(5 * 60 * 1000))
+    //   .pipe(delay(1000))
+    //   .subscribe(this.syncSafe);
+    const syncVis = () => document.visibilityState == 'visible'
+      && Date.now() - this.lastSync > 5 * 60 * 1000
+      && this.syncSafe();
 
     this.pending$.next(true);
     try {
       await this.gapi.init();
+      document.addEventListener('visibilitychange', syncVis);
     } catch {
       this.connectError();
     } finally {
@@ -74,6 +80,7 @@ export class BackupService {
   }
 
   private syncSafe = async (): Promise<void> => {
+    this.lastSync = Date.now();
     this.pending$.next(true);
     try {
       await this.syncWithDrive();

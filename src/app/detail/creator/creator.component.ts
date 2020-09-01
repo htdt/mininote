@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { NoteService } from '../../core/note.service';
 import { NoteUpdate } from '../../core/note';
 import { CryptoService } from '../../core/crypto.service';
@@ -19,16 +19,16 @@ export class CreatorComponent {
     private dialog: MatDialog,
   ) {}
 
-  unlock() {
+  unlock(): Promise<any> {
     return this.dialog.open(PasswordDialogComponent).afterClosed().toPromise();
   }
 
-  async save(e: NoteUpdate) {
+  async save(e: NoteUpdate): Promise<void> {
     if (e.encrypt && !this.crypto.unlocked$.getValue() && !await this.unlock()) return;
     this.router.navigate(['note', await this.notes.save(e)]);
   }
 
-  cancel() {
+  cancel(): void {
     this.router.navigateByUrl('/');
   }
 }

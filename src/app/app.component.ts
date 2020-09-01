@@ -11,7 +11,7 @@ import { BackupService } from './core/backup.service';
 export class AppComponent implements OnInit, OnDestroy {
   openNavAtStart: boolean;
   mobileQuery: MediaQueryList;
-  private _mobileQueryListener: () => void;
+  private mobileQueryListener: () => void;
 
   constructor(
     private notes: NoteService,
@@ -20,8 +20,8 @@ export class AppComponent implements OnInit, OnDestroy {
     media: MediaMatcher
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addListener(this._mobileQueryListener);
+    this.mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addEventListener('change', this.mobileQueryListener);
   }
 
   ngOnInit(): void {
@@ -31,6 +31,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.mobileQuery.removeListener(this._mobileQueryListener);
+    this.mobileQuery.removeEventListener('change', this.mobileQueryListener);
   }
 }

@@ -17,14 +17,14 @@ export class ViewerComponent {
   @Output() rm = new EventEmitter<any>();
   @Output() unlock = new EventEmitter<any>();
 
-  @HostListener('document:keypress', ['$event']) onKeypress(e: KeyboardEvent) {
+  @HostListener('document:keypress', ['$event']) onKeypress(e: KeyboardEvent): void {
     if (e.key == 'Enter' && e.shiftKey) {
       e.preventDefault();
       this.locked ? this.unlock.emit() : this.emitEdit();
     }
   }
 
-  emitEdit(focusTitle = false) {
+  emitEdit(focusTitle = false): void {
     if (!this.locked) this.edit.emit(focusTitle ? EditType.Title : EditType.Content);
   }
 

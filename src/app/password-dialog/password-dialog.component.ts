@@ -1,4 +1,4 @@
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Component } from '@angular/core';
 import { CryptoService } from '../core/crypto.service';
 import { NoteService } from '../core/note.service';
@@ -16,7 +16,7 @@ export class PasswordDialogComponent {
     private notes: NoteService,
   ) {}
 
-  async submit(pass: string) {
+  async submit(pass: string): Promise<void> {
     if (!pass) return;
     this.invalid = false;
     const val = this.notes.validationCifer();

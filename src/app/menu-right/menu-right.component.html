@@ -11,6 +11,10 @@
 </button>
 
 <mat-menu #menu>
+  <button mat-menu-item *ngIf='(gapi.signed$ | async) === true'>
+    Update from Google Drive
+  </button>
+
   <button mat-menu-item *ngIf='(gapi.signed$ | async) === false' (click)='gapi.signIn()'>
     Sync with Google Drive
   </button>

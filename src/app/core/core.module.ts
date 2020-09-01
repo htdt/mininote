@@ -13,7 +13,6 @@ import { MergeDialogComponent } from './merge-dialog.component';
     AppMaterialModule,
   ],
   declarations: [MergeDialogComponent],
-  entryComponents: [MergeDialogComponent],
   providers: [
     NoteService,
     GapiService,

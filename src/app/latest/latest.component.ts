@@ -12,7 +12,7 @@ export class LatestComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     const note = this.noteService.getLast();
     if (note != null) this.router.navigate(['note', note.id]);
   }
