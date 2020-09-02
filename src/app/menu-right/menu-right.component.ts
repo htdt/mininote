@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { GapiService } from '../core/gapi.service';
@@ -22,6 +22,10 @@ export class MenuRightComponent {
     private snackBar: MatSnackBar,
   ) {}
 
+  @HostListener('document:keypress', ['$event']) onKeypress(e): void {
+    if (e.key == 'S' && e.ctrlKey) this.backup.saveSafe();
+  }
+
   uploadJSON(): void {
     this.dialog.open(UploadJSONComponent).afterClosed().subscribe(async result => {
       if (!result) return;
@@ -31,6 +35,11 @@ export class MenuRightComponent {
         this.snackBar.open('Error loading file', 'Close', { duration: 3000 });
       }
     });
+  }
+
+  restore(): void {
+    this.backup.reset();
+    this.backup.loadSafe();
   }
 
   logout(): void {

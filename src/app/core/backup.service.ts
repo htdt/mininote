@@ -11,13 +11,11 @@ import { MergeDialogComponent } from './merge-dialog.component';
 @Injectable()
 export class BackupService {
   pending$ = new BehaviorSubject<boolean>(false);
+  unsaved$ = new BehaviorSubject<boolean>(false);
   skipCurListUpdate = false;
-  lastSync = 0;
 
   get syncTS(): string { return localStorage.getItem('syncTS'); }
   set syncTS(x: string)   { localStorage.setItem('syncTS', x); }
-  get unsaved(): boolean { return localStorage.getItem('unsaved') == 'true'; }
-  set unsaved(x: boolean) { localStorage.setItem('unsaved', x.toString()); }
 
   constructor(
     private gapi: GapiService,
@@ -28,34 +26,30 @@ export class BackupService {
 
   reset(): void {
     this.syncTS = '0';
-    this.unsaved = false;
+    this.unsaved$.next(false);
   }
 
   async start(): Promise<void> {
+    if (localStorage.getItem('unsaved') == 'true') this.unsaved$.next(true);
+    this.unsaved$.subscribe(x => localStorage.setItem('unsaved', x.toString()));
+
     this.notes.list$.pipe(skip(1)).subscribe(_ => {
       if (this.skipCurListUpdate) this.skipCurListUpdate = false;
-      else {
-        this.unsaved = true;
-        this.syncSafe();
-      }
+      else this.unsaved$.next(true);
     });
 
-    this.gapi.signed$.pipe(filter(f => f)).subscribe(this.syncSafe);
+    this.gapi.signed$.pipe(filter(f => f)).subscribe(this.loadSafe);
 
-    // fromEvent(document, 'visibilitychange')
-    //   .pipe(throttleTime(60 * 1000))
-    //   .pipe(filter(() => !document.hidden))
-    //   .pipe(throttleTime(5 * 60 * 1000))
-    //   .pipe(delay(1000))
-    //   .subscribe(this.syncSafe);
-    const syncVis = () => document.visibilityState == 'visible'
-      && Date.now() - this.lastSync > 5 * 60 * 1000
-      && this.syncSafe();
+    fromEvent(document, 'visibilitychange')
+      .pipe(throttleTime(60 * 1000))
+      .pipe(filter(() => !document.hidden))
+      .pipe(throttleTime(5 * 60 * 1000))
+      .pipe(delay(1000))
+      .subscribe(this.loadSafe);
 
     this.pending$.next(true);
     try {
       await this.gapi.init();
-      document.addEventListener('visibilitychange', syncVis);
     } catch {
       this.connectError();
     } finally {
@@ -71,46 +65,39 @@ export class BackupService {
     ).onAction().subscribe(() => window.location.reload());
   }
 
-  private syncError(): void {
+  private loadError(): void {
     this.snackBar.open(
-      'Unable to sync with Google Drive',
+      'Unable to load from Google Drive',
       'Try Again',
       { duration: 10000 }
-    ).onAction().subscribe(this.syncSafe);
+    ).onAction().subscribe(this.loadSafe);
   }
 
-  private syncSafe = async (): Promise<void> => {
-    this.lastSync = Date.now();
+  private saveError(): void {
+    this.snackBar.open(
+      'Unable to save to Google Drive',
+      'Try Again',
+      { duration: 10000 }
+    ).onAction().subscribe(this.saveSafe);
+  }
+
+  loadSafe = async (): Promise<void> => {
+    if (!this.gapi.signed$.getValue()) return;
+    if (this.unsaved$.getValue() || this.pending$.getValue()) return;
+
     this.pending$.next(true);
     try {
-      await this.syncWithDrive();
+      const ts = await this.gapi.getTS();
+      if (ts == null) await this.save();
+      else if (ts != this.syncTS) await this.load(ts);
     } catch {
-      this.syncError();
+      this.loadError();
     } finally {
       this.pending$.next(false);
     }
   }
 
-  private async syncWithDrive(): Promise<void> {
-    if (!this.gapi.signed$.getValue()) return;
-
-    const ts = await this.gapi.getTS();
-    if (ts != this.syncTS) {
-      if (!this.unsaved) this.load(ts);
-      else {
-        this.dialog.open(MergeDialogComponent).afterClosed().subscribe(
-          async result => {
-            if (result == 'local') await this.save();
-            else if (result == 'drive') await this.load(ts);
-            else if (result == undefined) return; // ignore issue :)
-            else throw new Error('invalid result after merge dialog');
-        });
-      }
-    } else if (this.unsaved || ts == null) this.save();
-  }
-
   private async load(ts: string): Promise<void> {
-    console.log('Google Drive: load');
     const db = await this.gapi.load();
     if (db != null) {
       this.skipCurListUpdate = true;
@@ -119,12 +106,27 @@ export class BackupService {
     }
   }
 
+  saveSafe = async (): Promise<void> => {
+    if (!this.gapi.signed$.getValue()) return;
+    if (this.pending$.getValue()) {
+      this.snackBar.open('Sync in progress', 'Ok', { duration: 3000 });
+      return;
+    }
+    this.pending$.next(true);
+    try {
+      await this.save();
+    } catch {
+      this.saveError();
+    } finally {
+      this.pending$.next(false);
+    }
+  }
+
   private async save(): Promise<void> {
-    console.log('Google Drive: save');
     const db = this.notes.list$.getValue();
     await this.gapi.save(db);
-    this.unsaved = false;
     this.syncTS = await this.gapi.getTS();
+    this.unsaved$.next(false);
   }
 
   downloadFile(): void {

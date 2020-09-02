@@ -54,7 +54,8 @@ export class GapiService {
       .then(r => r.body ? JSON.parse(r.body) : null);
   }
 
-  save(data: any): Promise<any> {
+  async save(data: any): Promise<any> {
+    if (this.fileId == undefined) await this.getTS();
     return gapi.client.request({
       path: '/upload/drive/v3/files/' + this.fileId,
       method: 'PATCH',

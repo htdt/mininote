@@ -1,5 +1,11 @@
 <mat-spinner *ngIf='backup.pending$ | async' color='accent' diameter='30'></mat-spinner>
 
+<button *ngIf='(gapi.signed$ | async) && (backup.unsaved$ | async)'
+  mat-icon-button (click)='backup.saveSafe()'
+  [disabled]='backup.pending$ | async'
+  matTooltip='Save changes to Google Drive (ctrl + shift + s)'>
+  <mat-icon>save</mat-icon>
+</button>
 
 <button *ngIf='crypto.unlocked$ | async' mat-icon-button (click)='crypto.setPassword()'
   matTooltip='lock encrypted notes'>
@@ -13,6 +19,12 @@
 <mat-menu #menu>
   <button mat-menu-item *ngIf='(gapi.signed$ | async) === false' (click)='gapi.signIn()'>
     Sync with Google Drive
+  </button>
+
+  <button mat-menu-item *ngIf='(gapi.signed$ | async) && (backup.unsaved$ | async)'
+    matTooltip='REPLACE all local changes with the version from Google Drive'
+    (click)='restore()'>
+    Restore from Google Drive
   </button>
 
   <button mat-menu-item *ngIf='gapi.signed$ | async' (click)='logout()'>

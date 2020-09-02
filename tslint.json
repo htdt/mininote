@@ -1,6 +1,19 @@
 {
   "extends": "tslint:recommended",
   "rules": {
+    "object-literal-sort-keys": false,
+    "trailing-comma": [true, {
+      "singleline": "never",
+      "multiline": {
+        "objects": "always",
+        "arrays": "always",
+        "functions": "ignore",
+        "typeLiterals": "ignore"
+      }
+    }],
+    "arrow-parens": [true, "ban-single-arg-parens"],
+    "member-access": [true, "no-public"],
+    "ordered-imports": false,
     "triple-equals": false,
     "align": {
       "options": [
