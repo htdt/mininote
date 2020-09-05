@@ -18,3 +18,7 @@ mat-card-title mat-icon {
   color: #999;
   padding-left: 2px;
 }
+
+mat-card-content {
+  margin-top: 16px;
+}

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { fromEvent, BehaviorSubject } from 'rxjs';
-import { skip, filter, throttleTime, delay } from 'rxjs/operators';
+import { skip, filter, throttleTime, delay, take } from 'rxjs/operators';
 
 import { GapiService } from './gapi.service';
 import { NoteService } from './note.service';
@@ -38,10 +38,16 @@ export class BackupService {
       else this.unsaved$.next(true);
     });
 
-    this.gapi.signed$.pipe(filter(f => f)).subscribe(this.loadSafe);
+    this.gapi.signed$
+      .pipe(filter(f => f))
+      .subscribe(_ =>
+        this.pending$
+          .pipe(filter(f => !f))
+          .pipe(take(1))
+          .subscribe(this.loadSafe));
 
     fromEvent(document, 'visibilitychange')
-      .pipe(throttleTime(60 * 1000))
+      .pipe(throttleTime(5 * 1000))
       .pipe(filter(() => !document.hidden))
       .pipe(throttleTime(5 * 60 * 1000))
       .pipe(delay(1000))
@@ -83,7 +89,11 @@ export class BackupService {
 
   loadSafe = async (): Promise<void> => {
     if (!this.gapi.signed$.getValue()) return;
-    if (this.unsaved$.getValue() || this.pending$.getValue()) return;
+    if (this.unsaved$.getValue()) return;
+    if (this.pending$.getValue()) {
+      console.log('tried to load while pending');
+      return;
+    }
 
     this.pending$.next(true);
     try {
