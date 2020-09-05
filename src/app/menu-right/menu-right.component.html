@@ -21,12 +21,6 @@
     Sync with Google Drive
   </button>
 
-  <button mat-menu-item *ngIf='(gapi.signed$ | async) && (backup.unsaved$ | async)'
-    matTooltip='REPLACE all local changes with the version from Google Drive'
-    (click)='restore()'>
-    Restore from Google Drive
-  </button>
-
   <button mat-menu-item *ngIf='gapi.signed$ | async' (click)='logout()'>
     Logout and cleanup
   </button>

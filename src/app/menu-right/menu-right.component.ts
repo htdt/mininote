@@ -37,11 +37,6 @@ export class MenuRightComponent {
     });
   }
 
-  restore(): void {
-    this.backup.reset();
-    this.backup.loadSafe();
-  }
-
   logout(): void {
     this.gapi.signOut();
     this.notes.update([]);
