@@ -116,6 +116,17 @@ export class BackupService {
     }
   }
 
+  private async resolveMerge(ts: string): Promise<void> {
+    this.dialog.open(MergeDialogComponent).afterClosed().subscribe(
+      async result => {
+        if (result == 'local') await this.save();
+        else if (result == 'drive') {
+          this.reset();
+          await this.load(ts);
+        } else throw new Error('invalid result after merge dialog');
+    });
+  }
+
   saveSafe = async (): Promise<void> => {
     if (!this.gapi.signed$.getValue()) return;
     if (this.pending$.getValue()) {
@@ -124,7 +135,9 @@ export class BackupService {
     }
     this.pending$.next(true);
     try {
-      await this.save();
+      const ts = await this.gapi.getTS();
+      if (ts != this.syncTS) await this.resolveMerge(ts);
+      else await this.save();
     } catch {
       this.saveError();
     } finally {
