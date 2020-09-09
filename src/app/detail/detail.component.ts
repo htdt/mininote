@@ -25,9 +25,9 @@ export class DetailComponent implements OnInit, OnDestroy {
   private notesSub: Subscription;
   private cryptoSub: Subscription;
   private id: number;
-  public title: string;
-  public content: string;
-  public encrypted: boolean;
+  title: string;
+  content: string;
+  encrypted: boolean;
 
   constructor(
     private crypto: CryptoService,

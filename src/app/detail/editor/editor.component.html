@@ -1,8 +1,8 @@
 <mat-card>
   <mat-card-content>
     <mat-form-field>
-      <input matInput placeholder='title' [(ngModel)]='title' #inputTitle
-        matTooltip='use emoji as icon'>
+      <input matInput placeholder='title' [(ngModel)]='title' #inputTitle>
+      <mat-hint>use <a href='https://emojipedia.org/' target='_blank'>emoji</a> as icon</mat-hint>
     </mat-form-field>
 
     <mat-form-field>
@@ -12,7 +12,7 @@
         (keyup)='keyUp($event)'>
       </textarea>
       <mat-hint><a href='https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet'
-          target='_blank'>Markdown Cheatsheet</a></mat-hint>
+          target='_blank'>markdown cheatsheet</a></mat-hint>
     </mat-form-field>
     <p></p>
     <mat-checkbox [(ngModel)]='encrypt'>Encrypt</mat-checkbox>

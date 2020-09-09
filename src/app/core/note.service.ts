@@ -4,6 +4,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Note, NoteUpdate, Cifer } from './note';
 import { CryptoService } from './crypto.service';
+import { DEF_NOTE } from './note.default';
 
 @Injectable()
 export class NoteService {
@@ -14,7 +15,8 @@ export class NoteService {
     private snackBar: MatSnackBar,
     private crypto: CryptoService,
   ) {
-    const init = JSON.parse(localStorage.getItem('mininoteDB')) || [];
+    let init = JSON.parse(localStorage.getItem('mininoteDB'));
+    if (!init || init.length == 0) init = [DEF_NOTE];
     this.list$ = new BehaviorSubject(init);
     this.list$.subscribe(x =>
       localStorage.setItem('mininoteDB', JSON.stringify(x)));

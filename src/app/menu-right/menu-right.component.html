@@ -8,7 +8,7 @@
 </button>
 
 <button *ngIf='crypto.unlocked$ | async' mat-icon-button (click)='crypto.setPassword()'
-  matTooltip='lock encrypted notes'>
+  matTooltip='Lock encrypted notes'>
   <mat-icon>lock_open</mat-icon>
 </button>
 
