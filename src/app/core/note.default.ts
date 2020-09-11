@@ -33,13 +33,13 @@ To run the app from source:
 - clone the [repository](https://github.com/htdt/mininote)
 - \`npm i\` to install dependencies
 - \`npm start\` to serve on https://localhost:4200/
-- \`npm run build\` to build the project into \`docs\`  (default publishing source for [GitHub Pages](https://pages.github.com/))
+- \`npm run build\` to build the project into \`docs\` (default publishing source for [GitHub Pages](https://pages.github.com/))
 
 Google Drive API key is restricted to mininote.js.org domain. If you want this functionality for localhost (or another domain), you need to get new [credentials](https://console.developers.google.com/apis/credentials) and replace \`clientId\` and \`apiKey\` in [gapi.service.ts](https://github.com/htdt/mininote/blob/master/src/app/core/gapi.service.ts).`;
 
 export const DEF_NOTE = {
   updated: Date.now(),
   id: 0,
-  title: '🤩 welcome',
+  title: '✨ welcome',
   content,
 };
