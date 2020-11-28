@@ -3,7 +3,7 @@
 <button *ngIf='(gapi.signed$ | async) && (backup.unsaved$ | async)'
   mat-icon-button (click)='backup.saveSafe()'
   [disabled]='backup.pending$ | async'
-  matTooltip='Save changes to Google Drive (ctrl + shift + s)'>
+  matTooltip='Save changes to Google Drive'>
   <mat-icon>save</mat-icon>
 </button>
 

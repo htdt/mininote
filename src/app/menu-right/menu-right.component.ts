@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { GapiService } from '../core/gapi.service';
@@ -21,10 +21,6 @@ export class MenuRightComponent {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
   ) {}
-
-  @HostListener('document:keypress', ['$event']) onKeypress(e): void {
-    if (e.key == 'S' && e.ctrlKey) this.backup.saveSafe();
-  }
 
   uploadJSON(): void {
     this.dialog.open(UploadJSONComponent).afterClosed().subscribe(async result => {

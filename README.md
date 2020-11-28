@@ -18,7 +18,6 @@ The app is free, ad-free, without user tracking. Classy mininote.js.org domain i
 
 Keyboard shortcuts:
 - `ctrl + shift + p` to search by title
-- `ctrl + shift + s` to save changes to Google Drive
 - `shift + enter` to decrypt / edit / finish editing
 - `esc` to cancel editing
 
