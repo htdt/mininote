@@ -35,7 +35,10 @@ export class BackupService {
 
     this.notes.list$.pipe(skip(1)).subscribe(_ => {
       if (this.skipCurListUpdate) this.skipCurListUpdate = false;
-      else this.unsaved$.next(true);
+      else {
+        this.unsaved$.next(true);
+        this.saveSafe();
+      }
     });
 
     this.gapi.signed$
