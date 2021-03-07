@@ -10,6 +10,7 @@ body {
 code {
   font-family: 'Roboto Mono', monospace;
   font-size: 13px;
+  white-space: pre-wrap;
 }
 
 pre {

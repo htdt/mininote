@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1606556030378,
+  "timestamp": 1615107523813,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -12,14 +12,14 @@
       },
       "urls": [
         "/index.html",
-        "/main-es2015.aa00e30c8137c204f5b7.js",
-        "/main-es5.aa00e30c8137c204f5b7.js",
+        "/main-es2015.d34a595d4041236ec5fa.js",
+        "/main-es5.d34a595d4041236ec5fa.js",
         "/manifest.webmanifest",
-        "/polyfills-es2015.95bb65e853d2781ac3bd.js",
-        "/polyfills-es5.341d48ffc88eaeae911d.js",
-        "/runtime-es2015.409e6590615fb48d139f.js",
-        "/runtime-es5.409e6590615fb48d139f.js",
-        "/styles.1e82d19c910de23fd77c.css"
+        "/polyfills-es2015.c131ee7c37c2ac42bd19.js",
+        "/polyfills-es5.fe22f73306971870cc16.js",
+        "/runtime-es2015.a4dadbc03350107420a4.js",
+        "/runtime-es5.a4dadbc03350107420a4.js",
+        "/styles.dd598f93dc9e99d8a29a.css"
       ],
       "patterns": []
     },
@@ -41,15 +41,15 @@
   "hashTable": {
     "/assets/favicon192.png": "43950742a4ede10c0c13409ac63c430360191437",
     "/assets/favicon32.png": "ad09fe99f37be0c1fec818aacb663820ccd040d4",
-    "/index.html": "9dca2f8cd2ee8e279628ff659de0b87184d476fe",
-    "/main-es2015.aa00e30c8137c204f5b7.js": "4304bf1c139b2d268229674a94d92ad6280a8d9a",
-    "/main-es5.aa00e30c8137c204f5b7.js": "98d554c59f5cd95c360bf0e0dbc25a61f7658bea",
+    "/index.html": "26b1807b2a19a21f74aa443186f846166f0eaaed",
+    "/main-es2015.d34a595d4041236ec5fa.js": "e7456efe02d80569b08790ae58c97252b1eb0bcc",
+    "/main-es5.d34a595d4041236ec5fa.js": "b0966a9ecc554a510371f24962e93661c0316203",
     "/manifest.webmanifest": "62c7e11f70a4f07558f81198ed054246adb362e1",
-    "/polyfills-es2015.95bb65e853d2781ac3bd.js": "72ad4ccc0a3916ae4598199447cdeadd6d380570",
-    "/polyfills-es5.341d48ffc88eaeae911d.js": "ff14d90e08622190714660721edab5f43578829a",
-    "/runtime-es2015.409e6590615fb48d139f.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
-    "/runtime-es5.409e6590615fb48d139f.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
-    "/styles.1e82d19c910de23fd77c.css": "ec988426fb0a87742fd19dd3cf9cdf51ae4c9ce1"
+    "/polyfills-es2015.c131ee7c37c2ac42bd19.js": "65c537467564ee0ba776b629f71ed3413413a7cb",
+    "/polyfills-es5.fe22f73306971870cc16.js": "f1fb001939e2a054d62f941e8281f6051a71bf04",
+    "/runtime-es2015.a4dadbc03350107420a4.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
+    "/runtime-es5.a4dadbc03350107420a4.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
+    "/styles.dd598f93dc9e99d8a29a.css": "694bb9c3e6a7e04651b29f16f12cbf6389b60ec7"
   },
   "navigationUrls": [
     {
@@ -68,5 +68,6 @@
       "positive": false,
       "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
     }
-  ]
+  ],
+  "navigationRequestStrategy": "performance"
 }
